@@ -1,0 +1,12 @@
+.Title {
+    font-size: 25px;
+}
+
+.Ingredients {
+    text-transform: capitalize;
+}
+
+/*
+.List {
+    list-style-image: url("");
+}*/
