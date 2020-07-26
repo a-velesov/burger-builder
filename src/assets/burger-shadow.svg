@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="416" height="23" viewBox="0 0 416 23">
+  <g id="burger-shadow" fill="#641111" stroke="#707070" stroke-width="1">
+    <ellipse cx="208" cy="11.5" rx="208" ry="11.5" stroke="none"/>
+    <ellipse cx="208" cy="11.5" rx="207.5" ry="11" fill="none"/>
+  </g>
+</svg>
