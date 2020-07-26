@@ -1,6 +1,6 @@
 import React from 'react';
-import classes from './BuildControls.module.css';
-import { BuildControl } from './BuildControl/BuildControl';
+import classes from './SelectionControls.module.css';
+import { SelectionControl } from './SelectionControl/SelectionControl';
 
 const controls = [
   {
@@ -21,13 +21,13 @@ const controls = [
   },
 ];
 
-export const BuildControls = (props) => {
+export const SelectionControls = (props) => {
   return (
     <div className={ classes.BuildControls }>
       <p>Current Price: <strong>{ props.price.toFixed(2) }</strong></p>
 
       { controls.map(ctrl => (
-        <BuildControl
+        <SelectionControl
           key={ ctrl.label }
           label={ ctrl.label }
           added={ () => props.ingredientAdded(ctrl.type) }

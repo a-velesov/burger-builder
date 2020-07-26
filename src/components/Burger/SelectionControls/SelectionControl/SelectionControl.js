@@ -1,7 +1,7 @@
 import React from 'react';
-import classes from './BuildControl.module.css';
+import classes from './SelectionControl.module.css';
 
-export const BuildControl = (props) => {
+export const SelectionControl = (props) => {
   return (
     <div className={ classes.BuildControl }>
       <div className={ classes.Label }>{ props.label }</div>
