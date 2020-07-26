@@ -2,22 +2,17 @@ import React from 'react';
 import classes from './Modal.module.css';
 import { Backdrop } from '../Backdrop/Backdrop';
 
-export const Modal = (props) => {
+export const Modal = ({ children, show, purchasingHandler}) => {
+  const animation = show ? classes.FadeIn : classes.FadeOut;
+  const style = [classes.Modal, animation];
+
+  console.log("animation", animation);
+  console.log("style", style);
+
   return (
     <>
-      <Backdrop
-        show={ props.show }
-        clicked={props.modalClosed}
-      />
-      <div
-        className={ classes.Modal }
-        style={ {
-          transform: props.show ? 'translateY(0)' : 'translateY(-180vh)',
-          opacity: props.show ? '1' : '0',
-        } }
-      >
-        { props.children }
-      </div>
+      <div className={style.join(" ")}>{children}</div>
+      <Backdrop show={show} click={purchasingHandler}/>
     </>
   );
 };
