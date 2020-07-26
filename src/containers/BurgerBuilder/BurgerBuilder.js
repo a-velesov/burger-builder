@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Aux from '../../hoc/auxComponent';
-import { Burger } from '../../components/Layout/Burger/Burger';
-import { BuildControls } from '../../components/Layout/Burger/BuildControls/BuildControls';
+import { Burger } from '../../components/Burger/Burger';
+import { BuildControls } from '../../components/Burger/BuildControls/BuildControls';
 import { Modal } from '../../components/UI/Modal/Modal';
-import { OrderSummary } from '../../components/Layout/Burger/OrderSummary/OrderSummary';
+import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
   cheese: 0.5,
