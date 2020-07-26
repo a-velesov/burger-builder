@@ -2,21 +2,36 @@ import React, { Component } from 'react';
 import classes from './BurgerIngredient.module.css';
 import PropTypes from 'prop-types'
 
-class BurgerIngredient extends Component {
+
+const BurgerIngredient = ({ type }) => {
+  return (
+    <img
+      src={require(`../../../assets/burger-ingredients/${type}.svg`)}
+      className={classes.BurgerIngredients}
+    />
+
+  );
+};
+
+
+/*class BurgerIngredient extends Component {
 
   render() {
     let ingredient = null;
 
     switch(this.props.type) {
       case('bread-bottom'):
-        ingredient = <div className={ classes.BreadBottom }></div>;
+        ingredient = <img
+          src={'../../../assets/burger-ingredients/bread-bottom.svg'}
+          className={classes.BurgerIngredients}
+        />;
         break;
       case('bread-top'):
         ingredient = (
-          <div className={ classes.BreadTop }>
-          <div className={ classes.Seeds1 }></div>
-          <div className={ classes.Seeds2 }></div>
-        </div>
+          <img
+            src={'../../../assets/burger-ingredients/bread-top.svg'}
+            className={classes.BurgerIngredients}
+          />
         );
         break;
       case('meat'):
@@ -37,7 +52,7 @@ class BurgerIngredient extends Component {
     }
     return ingredient;
   }
-}
+}*/
 
 BurgerIngredient.propTypes = {
   type: PropTypes.string.isRequired
