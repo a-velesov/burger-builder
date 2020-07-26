@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Burger } from '../../components/Burger/Burger';
-import classes from './BurgerBulder.module.css'
+import classes from './BurgerBulder.module.css';
 import SelectionControls from '../../components/Burger/SelectionControls/SelectionControls';
+import { Modal } from '../../components/UI/Modal/Modal';
+import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
   lettuce: 0.25,
@@ -18,18 +20,19 @@ const INGREDIENT_PRICES = {
 const initialIngredients = {
   lettuce: 1,
   onion: 1,
-  pickle: 1,
-  tomato: 1,
-  egg: 1,
+  pickle: 0,
+  tomato: 0,
+  egg: 0,
   bacon: 1,
   cheese: 1,
   protein: 1,
 };
 
-const initialPrice = Object.values(INGREDIENT_PRICES).reduce((a, b) => a + b);
-
+//calculate initial price based on prices and number of initial ingredients
+const initialPrice = Object.keys(INGREDIENT_PRICES)
+  .reduce((total, cur) => total += INGREDIENT_PRICES[cur] * initialIngredients[cur], 0);
 const initialTotalIngredients = Object.values(initialIngredients).reduce(
-  (sum, cur) => sum + cur
+  (sum, cur) => sum + cur,
 );
 
 //start component
@@ -46,6 +49,7 @@ class BurgerBuilder extends Component {
     totalIngredients: initialTotalIngredients,
     totalPrice: initialPrice,
     purchasable: false,
+    purchasing: false,
   };
 
   //fn for disable add/remove buttons in SelectionControls
@@ -58,7 +62,7 @@ class BurgerBuilder extends Component {
     //update quantity count
     const prevCount = this.state.ingredients[type];
     const updatedCount =
-            action === "add"
+            action === 'add'
               ? prevCount + 1
               : prevCount > 0
               ? prevCount - 1
@@ -68,7 +72,7 @@ class BurgerBuilder extends Component {
     //update price
     const prevPrice = this.state.totalPrice;
     const updatedPrice =
-            action === "add"
+            action === 'add'
               ? prevPrice + INGREDIENT_PRICES[type]
               : prevCount > 0
               ? prevPrice - INGREDIENT_PRICES[type]
@@ -81,7 +85,7 @@ class BurgerBuilder extends Component {
     this.setState({
       ingredients: updatedIngredients,
       totalIngredients: Object.values(updatedIngredients).reduce(
-        (sum, cur) => sum + cur
+        (sum, cur) => sum + cur,
       ),
       totalPrice: updatedPrice,
     });
@@ -100,34 +104,49 @@ class BurgerBuilder extends Component {
     this.resetSelectionControls.current.resetStates();
   };
 
+  purchasingHandler = () => {
+    //toggle purchasing true/false
+    this.setState({ purchasing: !this.state.purchasing });
+  };
+
   render() {
     return (
-      <article className={classes.BurgerBuilder}>
-        <div className={classes.TitleContainer}>
+      <article className={ classes.BurgerBuilder }>
+        <Modal show={ this.state.purchasing }
+               purchasingHandler={ this.purchasingHandler }
+        >
+          <OrderSummary
+            ingredients={ this.state.ingredients }
+            totalPrice={ this.state.totalPrice }
+            purchasingHandler={ this.purchasingHandler }
+          />
+        </Modal>
+        <div className={ classes.TitleContainer }>
           <div>
-            <p className={classes.SubTitle}>React</p>
-            <h2 className={classes.Title}>Mystery Burger</h2>
-            <p className={classes.Description}>
+            <p className={ classes.SubTitle }>React</p>
+            <h2 className={ classes.Title }>Mystery Burger</h2>
+            <p className={ classes.Description }>
               With Delicious Ancient Secret Sauce
             </p>
           </div>
         </div>
 
-        <div className={classes.Burger}>
-          <Burger ingredients={this.state.ingredients} />
+        <div className={ classes.Burger }>
+          <Burger ingredients={ this.state.ingredients } />
         </div>
 
-        <div className={classes.SelectionControls}>
+        <div className={ classes.SelectionControls }>
           <SelectionControls
-            totalPrice={this.state.totalPrice}
-            ingredients={this.state.ingredients}
-            totalIngredients={this.state.totalIngredients}
-            ref={this.resetSelectionControls}
-            adjustIngredientHandler={this.adjustIngredientHandler}
-            disabledAdd={this.state.disabledAdd}
-            disabledRemove={this.state.disabledRemove}
-            price={INGREDIENT_PRICES}
-            resetClickHandler={this.resetClickHandler}
+            totalPrice={ this.state.totalPrice }
+            ingredients={ this.state.ingredients }
+            totalIngredients={ this.state.totalIngredients }
+            ref={ this.resetSelectionControls }
+            adjustIngredientHandler={ this.adjustIngredientHandler }
+            disabledAdd={ this.state.disabledAdd }
+            disabledRemove={ this.state.disabledRemove }
+            price={ INGREDIENT_PRICES }
+            resetClickHandler={ this.resetClickHandler }
+            purchasingHandler={ this.purchasingHandler }
           />
         </div>
       </article>
