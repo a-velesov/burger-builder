@@ -1,0 +1,45 @@
+.Control {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.Control p {
+    color: #641111;
+    text-align: center;
+}
+
+.Control button {
+    font-weight: 700;
+    font-size: 1.5em;
+    display: inline-block;
+    font: inherit;
+    border: none;
+    background-color: #F8FFF1;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    padding: 0 15px;
+    /* margin: 0 5px; */
+}
+
+.Control button:disabled{
+    color: #aaa;
+    border-color: #ddd;
+}
+
+.Selection {
+    display: flex;
+}
+
+.PriceTag {
+    font-size: 0.8em;
+}
+
+.Label {
+    margin-top: 0.5em;
+    font-weight: 500;
+    text-transform: capitalize;
+}
