@@ -1,0 +1,132 @@
+.BurgerBuilder {
+    width: 80%;
+    max-width: 1100px;
+    text-align: left;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-areas:
+            "burger burger burger title"
+            "burger burger burger selection"
+            "burger burger burger selection";
+}
+
+.Burger {
+    grid-area: burger;
+    /* min-height: 100vh; */
+    display: grid;
+    align-items: center;
+}
+
+.TitleContainer {
+    grid-area: title;
+    display: grid;
+    align-items: flex-end;
+}
+
+.SelectionControls {
+    grid-area: selection;
+}
+
+.Title {
+    width: 20%;
+    font-size: 3em;
+    font-weight: 700;
+    line-height: 0.8em;
+    margin-bottom: 0.2em;
+    animation: tada;
+    animation-duration: 2s;
+}
+
+.SubTitle {
+    font-size: 3em;
+    font-family: "Reenie Beanie", cursive;
+    line-height: 1em;
+}
+
+.Description {
+    font-style: italic;
+}
+
+@media (max-width: 1200px) {
+    .BurgerBuilder {
+        max-width: 500px;
+        grid-template-areas:
+                "title"
+                "burger"
+                "selection";
+    }
+
+    .Burger {
+        margin-top: -5%;
+    }
+}
+
+@media (max-width: 500px) {
+    .BurgerBuilder {
+        width: 90%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .Burger {
+        margin-top: -5%;
+    }
+}
+
+@-webkit-keyframes tada {
+    0% {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+    }
+    10%,
+    20% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate(-3deg);
+        transform: scale3d(0.9, 0.9, 0.9) rotate(-3deg);
+    }
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate(3deg);
+    }
+    40%,
+    60%,
+    80% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg);
+    }
+    to {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+    }
+}
+@keyframes tada {
+    0% {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+    }
+    10%,
+    20% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate(-3deg);
+        transform: scale3d(0.9, 0.9, 0.9) rotate(-3deg);
+    }
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate(3deg);
+    }
+    40%,
+    60%,
+    80% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg);
+    }
+    to {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+    }
+}
