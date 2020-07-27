@@ -4,7 +4,8 @@ import classes from './BurgerBulder.module.css';
 import SelectionControls from '../../components/Burger/SelectionControls/SelectionControls';
 import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
-import axios from './../../Axios/axios-orders'
+import axios from './../../Axios/axios-orders';
+import { Loading } from '../../components/UI/Loading';
 
 const INGREDIENT_PRICES = {
   lettuce: 0.25,
@@ -51,6 +52,7 @@ class BurgerBuilder extends Component {
     totalPrice: initialPrice,
     purchasable: false,
     purchasing: false,
+    loading: false,
   };
 
   //fn for disable add/remove buttons in SelectionControls
@@ -111,6 +113,9 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
+    this.setState({
+      loading: true,
+    });
     const order = {
       ingredients: this.state.ingredients,
       price: this.state.totalPrice,
@@ -119,15 +124,29 @@ class BurgerBuilder extends Component {
         shipping: {
           city: 'Moscow',
           street: 'Vavilova',
-          house: '10'
+          house: '10',
         },
-        email: 'test@test.ru'
-      }
-    }
+        email: 'test@test.ru',
+      },
+    };
     axios.post('/orders.json', order)
-      .then(response => console.log(response))
-      .catch(error => console.log(error))
-  }
+      .then(response => {
+        this.setState({
+          loading: false,
+          ingredients: initialIngredients,
+          totalIngredients: initialTotalIngredients,
+          totalPrice: initialPrice,
+          purchasing: !this.state.purchasing,
+        });
+        this.resetSelectionControls.current.resetStates();
+        console.log(this.resetSelectionControls.current);
+      })
+      .catch(error => {
+        this.setState({
+          loading: false,
+        });
+      });
+  };
 
   render() {
     return (
@@ -135,12 +154,14 @@ class BurgerBuilder extends Component {
         <Modal show={ this.state.purchasing }
                purchasingHandler={ this.purchasingHandler }
         >
-          <OrderSummary
-            ingredients={ this.state.ingredients }
-            totalPrice={ this.state.totalPrice }
-            purchasingHandler={ this.purchasingHandler }
-            purchaseContinueHandler={this.purchaseContinueHandler}
-          />
+          { this.state.loading
+            ? <Loading />
+            : <OrderSummary
+              ingredients={ this.state.ingredients }
+              totalPrice={ this.state.totalPrice }
+              purchasingHandler={ this.purchasingHandler }
+              purchaseContinueHandler={ this.purchaseContinueHandler }
+            /> }
         </Modal>
         <div className={ classes.TitleContainer }>
           <div>
