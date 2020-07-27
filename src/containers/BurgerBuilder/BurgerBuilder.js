@@ -4,6 +4,7 @@ import classes from './BurgerBulder.module.css';
 import SelectionControls from '../../components/Burger/SelectionControls/SelectionControls';
 import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
+import axios from './../../Axios/axios-orders'
 
 const INGREDIENT_PRICES = {
   lettuce: 0.25,
@@ -109,6 +110,25 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: !this.state.purchasing });
   };
 
+  purchaseContinueHandler = () => {
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.totalPrice,
+      customer: {
+        name: 'Alex',
+        shipping: {
+          city: 'Moscow',
+          street: 'Vavilova',
+          house: '10'
+        },
+        email: 'test@test.ru'
+      }
+    }
+    axios.post('/orders.json', order)
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
+  }
+
   render() {
     return (
       <article className={ classes.BurgerBuilder }>
@@ -119,6 +139,7 @@ class BurgerBuilder extends Component {
             ingredients={ this.state.ingredients }
             totalPrice={ this.state.totalPrice }
             purchasingHandler={ this.purchasingHandler }
+            purchaseContinueHandler={this.purchaseContinueHandler}
           />
         </Modal>
         <div className={ classes.TitleContainer }>

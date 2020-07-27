@@ -2,11 +2,9 @@ import React from 'react';
 import classes from './OrderSummary.module.css';
 import { Button } from '../../UI/Button/Button';
 
-export const OrderSummary = ({ ingredients, purchasingHandler, totalPrice }) => {
-  const ingredientSummary = ingredients;
-
+export const OrderSummary = ({ ingredients, purchasingHandler, purchaseContinueHandler, totalPrice }) => {
   //<li>lettuce: 1 </li>
-  const displayIngredients = Object.keys(ingredientSummary)
+  const displayIngredients = Object.keys(ingredients)
     .filter((el) => ingredients[el] > 0) //only show used ingredients
     .map((key) => (
       <li key={ key }>
@@ -30,7 +28,7 @@ export const OrderSummary = ({ ingredients, purchasingHandler, totalPrice }) => 
       </div>
 
       <Button type="secondary" action="Cancel" click={ purchasingHandler } />
-      <Button type="primary" action="Confirm" />
+      <Button type="primary" action="Confirm" click={purchaseContinueHandler} />
     </>
   );
 };
