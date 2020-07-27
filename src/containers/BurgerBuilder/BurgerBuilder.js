@@ -123,7 +123,7 @@ class BurgerBuilder extends Component {
         </Modal>
         <div className={ classes.TitleContainer }>
           <div>
-            <p className={ classes.SubTitle }>React</p>
+            {/*<p className={ classes.SubTitle }>React</p>*/ }
             <h2 className={ classes.Title }>Mystery Burger</h2>
             <p className={ classes.Description }>
               With Delicious Ancient Secret Sauce

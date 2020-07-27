@@ -6,9 +6,9 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 5em;
+    padding: 1em 5em;
     animation: pulse;
     animation-duration: 2s;
 }
@@ -16,7 +16,7 @@
 .WholeBurger {
     display: flex;
     flex-direction: column;
-    background-image: url("../../assets/background.svg");
+    /*background-image: url("../../assets/background.svg");*/
     background-repeat: no-repeat;
     background-size: 100% 100%;
     margin-right: 2em;
@@ -24,7 +24,8 @@
 }
 
 .Shadow {
-    margin-top: -5%;
+    margin-top: -20%;
+    opacity: .2;
 }
 
 @media (max-width: 1250px) {
