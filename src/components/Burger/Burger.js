@@ -26,7 +26,11 @@ export const Burger = (props) => {
       { transformedIngredient }
       <BurgerIngredient type='bread-bottom' />
         </div>
-      <img className={ classes.Shadow } src={ shadow } alt="burger shadow"/>
+      {
+        transformedIngredient.length <= 8
+          ? <img className={ classes.Shadow } src={ shadow } alt="burger shadow"/>
+          : null
+      }
     </div>
   );
 };

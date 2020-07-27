@@ -6,6 +6,7 @@ import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from './../../Axios/axios-orders';
 import { Loading } from '../../components/UI/Loading';
+import { OrderCompleted } from '../../components/Burger/OrderSummary/OrderCompleted/OrderCompleted';
 
 const INGREDIENT_PRICES = {
   lettuce: 0.25,
@@ -53,6 +54,7 @@ class BurgerBuilder extends Component {
     purchasable: false,
     purchasing: false,
     loading: false,
+    completed: false
   };
 
   //fn for disable add/remove buttons in SelectionControls
@@ -112,6 +114,10 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: !this.state.purchasing });
   };
 
+  completeHandler = () => {
+    this.setState({ completed: false });
+  }
+
   purchaseContinueHandler = () => {
     this.setState({
       loading: true,
@@ -137,13 +143,13 @@ class BurgerBuilder extends Component {
           totalIngredients: initialTotalIngredients,
           totalPrice: initialPrice,
           purchasing: !this.state.purchasing,
+          completed: true
         });
         this.resetSelectionControls.current.resetStates();
-        console.log(this.resetSelectionControls.current);
       })
       .catch(error => {
         this.setState({
-          loading: false,
+          loading: true,
         });
       });
   };
@@ -152,7 +158,7 @@ class BurgerBuilder extends Component {
     return (
       <article className={ classes.BurgerBuilder }>
         <Modal show={ this.state.purchasing }
-               purchasingHandler={ this.purchasingHandler }
+               close ={ this.purchasingHandler }
         >
           { this.state.loading
             ? <Loading />
@@ -163,6 +169,9 @@ class BurgerBuilder extends Component {
               purchaseContinueHandler={ this.purchaseContinueHandler }
             /> }
         </Modal>
+
+        <OrderCompleted show={ this.state.completed } close={this.completeHandler} />
+
         <div className={ classes.TitleContainer }>
           <div>
             {/*<p className={ classes.SubTitle }>React</p>*/ }

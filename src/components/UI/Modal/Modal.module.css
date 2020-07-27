@@ -19,7 +19,7 @@
 
 .FadeIn {
     animation: fadeInDown;
-    animation-duration: 400ms;
+    animation-duration: 800ms;
 }
 
 .FadeOut {

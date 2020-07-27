@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classes from './BurgerIngredient.module.css';
 import PropTypes from 'prop-types';
 
@@ -8,6 +8,7 @@ const BurgerIngredient = ({ type }) => {
     <img
       src={ require(`../../../assets/burger-ingredients/${ type }.svg`) }
       className={ classes.BurgerIngredients }
+      alt='burger-ingredients'
     />
 
   );
