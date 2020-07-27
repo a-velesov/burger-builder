@@ -1,0 +1,10 @@
+.Content {
+    margin-top: 6em;
+}
+
+
+@media (max-width: 900px) {
+    .Content {
+        margin: 3em 0;
+    }
+}

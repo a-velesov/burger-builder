@@ -1,0 +1,56 @@
+.Header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .1);
+    padding: 10px 0;
+}
+
+.HeaderContainer {
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 250px auto 250px;
+    align-items: center;
+    /* justify-items: center; */
+}
+
+.Nav {
+    grid-column: 3;
+    justify-self: flex-end;
+    display: flex;
+    align-content: space-between;
+    align-items: center;
+}
+
+.Nav p {
+    font-size: 0.9em;
+    font-weight: 500;
+    padding-left: 1em;
+}
+
+.Nav p,
+.Nav img {
+    cursor: pointer;
+}
+
+.Nav div {
+    display: flex;
+    align-items: center;
+}
+
+.Nav img {
+    width: 30px;
+}
+
+@media (max-width: 1200px) {
+    .HeaderContainer {
+        max-width: 500px;
+    }
+
+    .Header {
+        position: relative;
+    }
+}
