@@ -1,9 +1,17 @@
+.Layout {
+    overflow-y: hidden;
+}
+
 .Content {
     margin-top: 7em;
 }
 
 
 @media (max-width: 900px) {
+    .Layout {
+        overflow-y: auto;
+    }
+
     .Content {
         margin: 3em 0;
     }
