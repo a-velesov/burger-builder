@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Button.module.css';
 
 export const Button = ({ type, action, click }) => {
-  let style = null;
+  let style = '';
 
   //assign style based on type
   switch(type) {

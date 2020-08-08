@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Burger } from '../../components/Burger/Burger';
+import Burger from '../../components/Burger/Burger';
 import classes from './BurgerBulder.module.css';
 import SelectionControls from '../../components/Burger/SelectionControls/SelectionControls';
 import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
-import axios from './../../Axios/axios-orders';
 import { Loading } from '../../components/UI/Loading';
 import { OrderCompleted } from '../../components/Burger/OrderSummary/OrderCompleted/OrderCompleted';
 
@@ -119,39 +118,20 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    this.setState({
-      loading: true,
-    });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: 'Alex',
-        shipping: {
-          city: 'Moscow',
-          street: 'Vavilova',
-          house: '10',
-        },
-        email: 'test@test.ru',
-      },
-    };
-    axios.post('/orders.json', order)
-      .then(response => {
-        this.setState({
-          loading: false,
-          ingredients: initialIngredients,
-          totalIngredients: initialTotalIngredients,
-          totalPrice: initialPrice,
-          purchasing: !this.state.purchasing,
-          completed: true
-        });
-        this.resetSelectionControls.current.resetStates();
-      })
-      .catch(error => {
-        this.setState({
-          loading: true,
-        });
-      });
+
+    const queryParams = [];
+    for(let i in this.state.ingredients) {
+      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+    }
+
+    queryParams.push('price=' + this.state.totalPrice)
+
+    const queryString = queryParams.join('&')
+    this.props.history.push({
+      pathname: '/cart',
+      search: '?' + queryString
+    })
+   // TODO Создать новый компонент с общим стейтом, который объединит два этих
   };
 
   render() {

@@ -25,13 +25,20 @@
     align-items: center;
 }
 
-.Nav p {
+.Nav span {
     font-size: 0.9em;
     font-weight: 500;
     padding-left: 1em;
+    vertical-align: super;
 }
 
-.Nav p,
+
+.Nav a {
+    text-decoration: none;
+    color: var(--main);
+}
+
+.Nav span,
 .Nav img {
     cursor: pointer;
 }
@@ -43,6 +50,10 @@
 
 .Nav img {
     width: 30px;
+}
+
+.Cart {
+    margin-left: 30px;
 }
 
 @media (max-width: 900px) {

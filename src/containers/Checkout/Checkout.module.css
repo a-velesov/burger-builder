@@ -1,0 +1,19 @@
+.Checkout {
+    text-align: center;
+    margin: 2rem 0;
+
+}
+
+.Title {
+    margin: 2rem 0;
+}
+
+.PersonalDataForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.PersonalData {
+    margin: 1rem 0;
+}
