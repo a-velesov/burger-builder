@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Button.module.css';
 
-export const Button = ({ type, action, click }) => {
+export const Button = ({ type, action, click, disabled }) => {
   let style = '';
 
   //assign style based on type
@@ -12,8 +12,11 @@ export const Button = ({ type, action, click }) => {
     case 'secondary':
       style = classes.Secondary;
       break;
+    case 'disabled':
+      style = classes.Disabled;
+      break;
     default:
       style = classes.Primary;
   }
-  return <button className={ style } onClick={ click }>{ action }</button>;
+  return <button disabled={ disabled } className={ style } onClick={ click }>{ action }</button>;
 };
