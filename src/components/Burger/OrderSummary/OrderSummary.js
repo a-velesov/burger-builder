@@ -3,7 +3,7 @@ import classes from './OrderSummary.module.css';
 import { Button } from '../../UI/Button/Button';
 
 export const OrderSummary = ({ ingredients, purchasingHandler, purchaseContinueHandler, totalPrice }) => {
-  //<li>lettuce: 1 </li>
+
   const displayIngredients = Object.keys(ingredients)
     .filter((el) => ingredients[el] > 0) //only show used ingredients
     .map((key) => (
@@ -24,10 +24,10 @@ export const OrderSummary = ({ ingredients, purchasingHandler, purchaseContinueH
         <h2>Your Order</h2>
         <p>A delicious burger with the following ingredients:</p>
         <ul className={ classes.List }>{ displayIngredients }</ul>
-        <h3>Total: ${ totalPrice.toFixed(2) }</h3>
+        <h3>Total: ${ totalPrice }</h3>
       </div>
 
-      <Button type="secondary" action="Cancel" click={ purchasingHandler } />
+      <Button type="secondary" action="Edit order" click={ purchasingHandler } />
       <Button type="primary" action="Confirm" click={purchaseContinueHandler} />
     </>
   );
