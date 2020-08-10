@@ -1,11 +1,10 @@
 .Checkout {
-    text-align: center;
-    margin: 2rem 0;
-
+    margin: 2rem auto;
 }
 
 .Title {
     margin: 2rem 0;
+    text-align: center;
 }
 
 .PersonalDataForm {
@@ -14,6 +13,8 @@
     align-items: center;
 }
 
-.PersonalData {
-    margin: 1rem 0;
+
+.Delivery {
+    width: 165px;
+    margin-bottom: 2rem;
 }
