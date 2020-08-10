@@ -4,7 +4,7 @@ import classes from './BurgerBulder.module.css';
 import SelectionControls from '../../components/Burger/SelectionControls/SelectionControls';
 import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
-import { Loading } from '../../components/UI/Loading';
+import { Loading } from '../../components/UI/Loading/Loading';
 import { OrderCompleted } from '../../components/Burger/OrderSummary/OrderCompleted/OrderCompleted';
 
 const INGREDIENT_PRICES = {

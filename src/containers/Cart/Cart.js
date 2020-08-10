@@ -9,6 +9,7 @@ class Cart extends Component {
   state = {
     ingredients: {},
     totalPrice: 0,
+    checkout: false
   };
 
   componentDidMount() {
@@ -34,17 +35,24 @@ class Cart extends Component {
 
   checkoutContinueHandler = () => {
     this.props.history.replace('/cart/checkout');
+    this.setState({
+      checkout: true
+    })
   };
 
   render() {
     return (
-      <div>
-        <CartSummary
-          totalPrice={ this.state.totalPrice }
-          ingredients={ this.state.ingredients }
-          checkoutCancelHandler={ this.checkoutCancelHandler }
-          checkoutContinueHandler={ this.checkoutContinueHandler }
-        />
+      <>
+        {
+          this.state.checkout || !this.state.totalPrice
+            ?  ''
+            : <CartSummary
+              totalPrice={ this.state.totalPrice }
+              ingredients={ this.state.ingredients }
+              checkoutCancelHandler={ this.checkoutCancelHandler }
+              checkoutContinueHandler={ this.checkoutContinueHandler }
+            />
+        }
         <Route path={ this.props.match.path + '/checkout' }
                render={ (props) => (
                  <Checkout
@@ -53,7 +61,7 @@ class Cart extends Component {
                    { ...props }
                  />) }
         />
-      </div>
+      </>
     );
   }
 }

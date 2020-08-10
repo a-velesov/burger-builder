@@ -58,12 +58,12 @@ export const Input = (props) => {
 
   let validationError = null;
   if(props.invalid && props.touched) {
-    validationError = <p>Please enter a valid value!</p>;
+    validationError = <p className={classes.ValidationError}>Please enter a valid value!</p>;
   }
 
   return (
-    <div className={ classes.Container }>
-      <label className={ classes.Label }>{ props.label }</label>
+    <div className={ classes.Checkout }>
+      <label className={ classes.Label }>{ props.elementConfig.label }</label>
       { inputElement }
       { validationError }
     </div>

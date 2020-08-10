@@ -1,4 +1,4 @@
-.Container {
+.Checkout {
     margin: 0 auto;
     box-sizing: border-box;
 }
@@ -6,15 +6,38 @@
 .Label {
     font-weight: bold;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    font-size: 12px;
 }
 
 .InputElement {
     min-width: 200px;
     margin-bottom: 1rem;
     box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border:1px solid #BEBEBE;
+    padding: 7px;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+}
+
+.InputElement:focus {
+    -moz-box-shadow: 0 0 8px #FF9300;
+    -webkit-box-shadow: 0 0 8px #FF9300;
+    box-shadow: 0 0 8px #FF9300;
+    border: 1px solid #FF9300;
 }
 
 .Invalid {
-    background-color: var(--main);
+    background-color: rgba(100, 17, 17, 0.15);
+    box-shadow: 0 0 8px #641111;
+    border: 1px solid #641111;
+}
+
+.ValidationError {
+    margin-bottom: 10px;
+    padding: 0;
 }
