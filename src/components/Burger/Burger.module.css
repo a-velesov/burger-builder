@@ -40,6 +40,12 @@
     }
 }
 
+@media (max-width: 900px) {
+    .WholeBurger {
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 600px) {
     .Burger {
         width: 320px;

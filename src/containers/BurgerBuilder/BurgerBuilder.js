@@ -4,7 +4,6 @@ import classes from './BurgerBulder.module.css';
 import SelectionControls from '../../components/Burger/SelectionControls/SelectionControls';
 import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
-import { Loading } from '../../components/UI/Loading/Loading';
 import { OrderCompleted } from '../../components/Burger/OrderSummary/OrderCompleted/OrderCompleted';
 
 const INGREDIENT_PRICES = {
@@ -114,7 +113,11 @@ class BurgerBuilder extends Component {
   };
 
   completeHandler = () => {
-    this.setState({ completed: false });
+    this.setState({
+      completed: !this.state.completed,
+      purchasing: false
+    });
+    this.resetClickHandler()
   }
 
   purchaseContinueHandler = () => {
@@ -133,7 +136,6 @@ class BurgerBuilder extends Component {
     })
    // TODO ? Создать новый компонент с общим стейтом, который объединит два этих
    // TODO Сделать 'быстрый заказ' вместо Reset в модальном окне
-    // TODO ? сделать checkout тдельным компонентом
   };
 
   render() {
@@ -142,14 +144,12 @@ class BurgerBuilder extends Component {
         <Modal show={ this.state.purchasing }
                close ={ this.purchasingHandler }
         >
-          { this.state.loading
-            ? <Loading />
-            : <OrderSummary
+          <OrderSummary
               ingredients={ this.state.ingredients }
               totalPrice={ this.state.totalPrice }
               purchasingHandler={ this.purchasingHandler }
-              purchaseContinueHandler={ this.purchaseContinueHandler }
-            /> }
+              purchaseContinueHandler={ this.completeHandler }
+            />
         </Modal>
 
         <OrderCompleted show={ this.state.completed } close={this.completeHandler} />
@@ -178,8 +178,8 @@ class BurgerBuilder extends Component {
             disabledAdd={ this.state.disabledAdd }
             disabledRemove={ this.state.disabledRemove }
             price={ INGREDIENT_PRICES }
-            resetClickHandler={ this.resetClickHandler }
-            purchasingHandler={ this.purchasingHandler }
+            purchasingHandler={ this.purchaseContinueHandler }
+            fastOrder={ this.purchasingHandler }
           />
         </div>
       </article>

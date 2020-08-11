@@ -59,8 +59,8 @@ class SelectionControls extends Component {
             adjustIngredientHandler,
             totalPrice,
             price,
-            resetClickHandler,
             purchasingHandler,
+            fastOrder
           } = this.props;
 
     //loop through ingredients to create individual control
@@ -78,25 +78,29 @@ class SelectionControls extends Component {
     ));
 
     //display warning message when ingredients are greater than 10
-    const warningMessage =
-            totalIngredients >= 10 ? (
-              <p className={ classes.Warning }>
-          You've reached your total ingredient limit.
-        </p>
-            ) : null;
+
 
     return (
       <div className={ classes.SelectionControls }>
         <h2 className={ classes.TotalPrice }>${ totalPrice.toFixed(2) }</h2>
         <p>Total Ingredients Used: { totalIngredients }/10</p>
-        { warningMessage }
+
+        { totalIngredients >= 10 ? (
+          <p className={ classes.Warning }>
+          You've reached your total ingredient limit.
+        </p>
+        ) : null }
+
         <div className={ classes.SelectionContainer }>{ displayControls }</div>
-        <Button
-          type="secondary"
-          action="Reset"
-          click={ resetClickHandler }
-        />
-        <Button type="primary" action="Order Now" click={ purchasingHandler } />
+
+        <div className={classes.ButtonContainer}>
+          <Button type="primary" action="Order Now" click={ purchasingHandler } />
+          <Button
+            type="secondary"
+            action="Fast order"
+            click={ fastOrder }
+          />
+      </div>
       </div>
     );
   }

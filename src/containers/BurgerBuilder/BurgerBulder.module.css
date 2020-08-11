@@ -1,5 +1,5 @@
 .BurgerBuilder {
-    width: 80%;
+    /*width: 80%;*/
     max-width: 1000px;
     text-align: left;
     margin: 0 auto;
@@ -48,7 +48,7 @@
     font-style: italic;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     .BurgerBuilder {
         max-width: 500px;
         grid-template-areas:
@@ -56,17 +56,14 @@
                 "burger"
                 "selection";
     }
-
-    .Burger {
-        margin-top: -5%;
-    }
-}
-
-@media (max-width: 900px) {
     .Title,
     .SubTitle {
         width: 100%;
         font-size: 2.1em;
+
+    }
+    .TitleContainer {
+        text-align: center;
     }
 }
 
