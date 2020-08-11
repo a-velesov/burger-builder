@@ -21,14 +21,14 @@ export const OrderSummary = ({ ingredients, purchasingHandler, purchaseContinueH
   return (
     <>
       <div className={ classes.Summary }>
-        <h2>Your Order</h2>
+        <h2>Fast Order</h2>
         <p>A delicious burger with the following ingredients:</p>
         <ul className={ classes.List }>{ displayIngredients }</ul>
         <h3>Total: ${ totalPrice }</h3>
       </div>
 
-      <Button type="secondary" action="Edit order" click={ purchasingHandler } />
       <Button type="primary" action="Confirm" click={purchaseContinueHandler} />
+      <Button type="secondary" action="Edit order" click={ purchasingHandler } />
     </>
   );
 };

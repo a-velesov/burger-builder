@@ -2,6 +2,7 @@
     cursor: pointer;
     font-size: 1em;
     font-weight: 700;
+    text-transform: uppercase;
     color: #f8fff1;
     background-color: #ff9300;
     border: 1px solid #ff9300;
@@ -22,6 +23,7 @@
     cursor: pointer;
     font-size: 1em;
     font-weight: 700;
+    text-transform: uppercase;
     color: #ff9300;
     background-color: #f8fff1;
     border: 1px solid #ff9300;
