@@ -3,7 +3,7 @@
 }
 
 .Title {
-    margin: 2rem 0;
+    margin: 2.5rem 0;
     text-align: center;
 }
 
@@ -17,4 +17,8 @@
 .Delivery {
     width: 165px;
     margin-bottom: 2rem;
+}
+
+.ButtonSubmit {
+    margin: 10px 0;
 }

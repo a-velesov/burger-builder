@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from '../../components/UI/Button/Button';
 import axios from '../../Axios/axios-orders';
-import { Loading } from '../../components/UI/Loading';
+import { Loading } from '../../components/UI/Loading/Loading';
 import classes from './Checkout.module.css';
 import { Input } from '../../components/UI/Input/Input';
 
@@ -13,43 +13,50 @@ class Checkout extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Your Name',
+          placeholder: 'Name',
+          label: 'Your Name',
         },
         validation: {},
         value: '',
         valid: true,
-        touched: false
+        touched: false,
       },
       email: {
         elementType: 'input',
         elementConfig: {
           type: 'email',
-          placeholder: 'Your Email',
+          placeholder: 'test@test.com',
+          label: 'Your Email',
         },
         value: '',
-        validation: {},
+        validation: {
+          isEmail: true,
+        },
         valid: true,
-        touched: false
+        touched: false,
       },
       phone: {
         elementType: 'input',
         elementConfig: {
           type: 'phone',
-          placeholder: 'Your Phone(required)',
+          placeholder: '89001234567',
+          label: 'Your Phone*',
         },
         value: '',
         validation: {
           required: true,
           minLength: 9,
+          isNumeric: true,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       address: {
         elementType: 'textarea',
         elementConfig: {
           type: 'text',
-          placeholder: 'Your address(required)',
+          placeholder: 'City, street, house, etc',
+          label: 'Your address*',
         },
         value: '',
         validation: {
@@ -70,21 +77,22 @@ class Checkout extends Component {
               displayValue: 'Cheapest',
             },
           ],
+          label: 'Delivery',
         },
-        value: '',
+        value: 'fastest',
         valid: true,
         validation: {},
       },
     },
     loading: false,
-    formIsValid: false
+    formIsValid: false,
   };
 
   checkValidity = (value, rules) => {
     let isValid = true;
 
     if(!rules) {
-      return true
+      return true;
     }
 
     if(rules.required) {
@@ -93,6 +101,16 @@ class Checkout extends Component {
 
     if(rules.minLength) {
       isValid = value.length >= rules.minLength && isValid;
+    }
+
+    if(rules.isEmail) {
+      const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+      isValid = pattern.test(value) && isValid;
+    }
+
+    if(rules.isNumeric) {
+      const pattern = /^\d+$/;
+      isValid = pattern.test(value) && isValid;
     }
 
     return isValid;
@@ -138,19 +156,17 @@ class Checkout extends Component {
 
     updateFormElement.value = e.target.value;
     updateFormElement.valid = this.checkValidity(updateFormElement.value, updateFormElement.validation);
-    updateFormElement.touched = true
+    updateFormElement.touched = true;
     updatedOrderForm[inputIdentifier] = updateFormElement;
 
-    let formIsValid = true
-    for (let inputIdentifier in updatedOrderForm) {
-      formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
+    let formIsValid = true;
+    for(let inputIdentifier in updatedOrderForm) {
+      formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
     }
-
-    console.log(formIsValid);
 
     this.setState({
       orderForm: updatedOrderForm,
-      formIsValid: formIsValid
+      formIsValid: formIsValid,
     });
   };
 
@@ -178,17 +194,20 @@ class Checkout extends Component {
                     elementType={ formElement.config.elementType }
                     elementConfig={ formElement.config.elementConfig }
                     value={ formElement.config.value }
-                    invalid={!formElement.config.valid}
-                    shouldValidate={formElement.config.validation}
-                    touched={formElement.touched}
+                    invalid={ !formElement.config.valid }
+                    shouldValidate={ formElement.config.validation }
+                    touched={ formElement.config.touched }
                     changed={ (e) => this.inputChangeHandler(e, formElement.id) }
                   />;
                 })
               }
-              <Button
-                action='Checkout'
-                type={!this.state.formIsValid ? 'disabled' : 'primary'}
-                disabled={!this.state.formIsValid} />
+              <div className={classes.ButtonSubmit}>
+                <Button
+                  action='Checkout'
+                  type={ !this.state.formIsValid ? 'disabled' : 'primary' }
+                  disabled={ !this.state.formIsValid }
+                />
+              </div>
               </form>
         }
       </div>
