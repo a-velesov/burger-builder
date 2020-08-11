@@ -4,7 +4,6 @@ import classes from './BurgerBulder.module.css';
 import SelectionControls from '../../components/Burger/SelectionControls/SelectionControls';
 import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
-import { Loading } from '../../components/UI/Loading/Loading';
 import { OrderCompleted } from '../../components/Burger/OrderSummary/OrderCompleted/OrderCompleted';
 
 const INGREDIENT_PRICES = {
@@ -53,7 +52,7 @@ class BurgerBuilder extends Component {
     purchasable: false,
     purchasing: false,
     loading: false,
-    completed: false
+    completed: false,
   };
 
   //fn for disable add/remove buttons in SelectionControls
@@ -114,45 +113,44 @@ class BurgerBuilder extends Component {
   };
 
   completeHandler = () => {
-    this.setState({ completed: false });
-  }
+    this.setState({
+      completed: !this.state.completed,
+      purchasing: false,
+    });
+    this.resetClickHandler();
+  };
 
   purchaseContinueHandler = () => {
 
     const queryParams = [];
     for(let i in this.state.ingredients) {
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
     }
 
-    queryParams.push('price=' + this.state.totalPrice)
+    queryParams.push('price=' + this.state.totalPrice);
 
-    const queryString = queryParams.join('&')
+    const queryString = queryParams.join('&');
     this.props.history.push({
       pathname: '/cart',
-      search: '?' + queryString
-    })
-   // TODO ? Создать новый компонент с общим стейтом, который объединит два этих
-   // TODO Сделать 'быстрый заказ' вместо Reset в модальном окне
-    // TODO ? сделать checkout тдельным компонентом
+      search: '?' + queryString,
+    });
   };
 
   render() {
     return (
       <article className={ classes.BurgerBuilder }>
         <Modal show={ this.state.purchasing }
-               close ={ this.purchasingHandler }
+               close={ this.purchasingHandler }
         >
-          { this.state.loading
-            ? <Loading />
-            : <OrderSummary
-              ingredients={ this.state.ingredients }
-              totalPrice={ this.state.totalPrice }
-              purchasingHandler={ this.purchasingHandler }
-              purchaseContinueHandler={ this.purchaseContinueHandler }
-            /> }
+          <OrderSummary
+            ingredients={ this.state.ingredients }
+            totalPrice={ this.state.totalPrice }
+            purchasingHandler={ this.purchasingHandler }
+            purchaseContinueHandler={ this.completeHandler }
+          />
         </Modal>
 
-        <OrderCompleted show={ this.state.completed } close={this.completeHandler} />
+        <OrderCompleted show={ this.state.completed } close={ this.completeHandler } />
 
         <div className={ classes.TitleContainer }>
           <div>
@@ -178,8 +176,8 @@ class BurgerBuilder extends Component {
             disabledAdd={ this.state.disabledAdd }
             disabledRemove={ this.state.disabledRemove }
             price={ INGREDIENT_PRICES }
-            resetClickHandler={ this.resetClickHandler }
-            purchasingHandler={ this.purchasingHandler }
+            purchasingHandler={ this.purchaseContinueHandler }
+            fastOrder={ this.purchasingHandler }
           />
         </div>
       </article>

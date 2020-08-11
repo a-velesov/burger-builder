@@ -32,7 +32,14 @@
     margin-top: 1em;
 }
 
-@media (max-width: 950px) {
+.ButtonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+@media (max-width: 900px) {
     .SelectionContainer {
         width: 100%;
         gap: 1.5em;
@@ -40,5 +47,11 @@
     }
     .TotalPrice {
         font-size: 2.5em;
+        margin-top: 15px;
+    }
+
+    .SelectionControls,
+    .TotalPrice {
+        text-align: center;
     }
 }

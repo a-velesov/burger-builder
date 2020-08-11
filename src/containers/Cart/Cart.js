@@ -44,7 +44,7 @@ class Cart extends Component {
     return (
       <>
         {
-          this.state.checkout || !this.state.totalPrice
+          this.state.checkout
             ?  ''
             : <CartSummary
               totalPrice={ this.state.totalPrice }
