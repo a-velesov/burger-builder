@@ -5,7 +5,7 @@ import SelectionControls from '../../components/Burger/SelectionControls/Selecti
 import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
 import { OrderCompleted } from '../../components/Burger/OrderSummary/OrderCompleted/OrderCompleted';
-import * as actionTypes from './../../store/actions'
+import * as actionTypes from './../../store/actions/actionTypes'
 import { connect } from 'react-redux';
 
 const INGREDIENT_PRICES = {
@@ -61,11 +61,11 @@ class BurgerBuilder extends Component {
   adjustIngredientHandler = (type, action, fn) => {
     //create copy of original ingredient obj
     const updatedIngredients = {
-      ...this.state.ingredients,
+      ...this.props.ings,
     };
 
     //update quantity count
-    const prevCount = this.state.ingredients[type];
+    const prevCount = this.props.ings[type];
     const updatedCount =
             action === 'add'
               ? prevCount + 1
@@ -125,8 +125,8 @@ class BurgerBuilder extends Component {
   purchaseContinueHandler = () => {
 
     const queryParams = [];
-    for(let i in this.state.ingredients) {
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+    for(let i in this.props.ings) {
+      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ings[i]))
     }
 
     queryParams.push('price=' + this.state.totalPrice)
@@ -147,7 +147,7 @@ class BurgerBuilder extends Component {
                close ={ this.purchasingHandler }
         >
           <OrderSummary
-              ingredients={ this.state.ingredients }
+              ingredients={ this.props.ings }
               totalPrice={ this.state.totalPrice }
               purchasingHandler={ this.purchasingHandler }
               purchaseContinueHandler={ this.completeHandler }
@@ -167,18 +167,16 @@ class BurgerBuilder extends Component {
         </div>
 
         <div className={ classes.Burger }>
-          <Burger ingredients={ this.state.ingredients } />
+          <Burger ingredients={ this.props.ings } />
         </div>
 
         <div className={ classes.SelectionControls }>
           <SelectionControls
             totalPrice={ this.state.totalPrice }
-            ingredients={ this.state.ingredients }
+            ingredients={ this.props.ings }
             totalIngredients={ this.state.totalIngredients }
             ref={ this.resetSelectionControls }
             adjustIngredientHandler={ this.adjustIngredientHandler }
-            disabledAdd={ this.state.disabledAdd }
-            disabledRemove={ this.state.disabledRemove }
             price={ INGREDIENT_PRICES }
             purchasingHandler={ this.purchaseContinueHandler }
             fastOrder={ this.purchasingHandler }
@@ -191,7 +189,7 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
-    ings: state.ingredients
+    ings: state.burgerBuilder.ingredients
   }
 }
 
@@ -201,5 +199,7 @@ const mapDispatchToProps = dispatch => {
     onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGRIDIENTS, ingredientName: ingName})
   }
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps) (BurgerBuilder);
