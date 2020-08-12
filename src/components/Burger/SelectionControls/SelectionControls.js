@@ -93,12 +93,14 @@ class SelectionControls extends Component {
 
         <div className={ classes.SelectionContainer }>{ displayControls }</div>
 
-        <Button type="primary" action="Order Now" click={ purchasingHandler } />
-        <Button
-          type="secondary"
-          action="Fast order"
-          click={ fastOrder }
-        />
+        <div className={classes.ButtonContainer}>
+          <Button type="primary" action="Order Now" click={ purchasingHandler } />
+          <Button
+            type="secondary"
+            action="Fast order"
+            click={ fastOrder }
+          />
+        </div>
       </div>
     );
   }

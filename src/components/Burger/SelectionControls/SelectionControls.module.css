@@ -32,12 +32,19 @@
     margin-top: 1em;
 }
 
+.ButtonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 @media (max-width: 900px) {
     .SelectionContainer {
         width: 100%;
         gap: 1.5em;
         grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
     }
+
     .TotalPrice {
         font-size: 2.5em;
         margin-top: 15px;
