@@ -1,11 +1,15 @@
-import * as actionTypes from './actions';
+import * as actionTypes from './../actions/actionTypes';
 
 const initialState = {
   ingredients: {
-    salad: 0,
-    bacon: 0,
-    cheese: 0,
-    meat: 0
+    lettuce: 1,
+    onion: 1,
+    pickle: 0,
+    tomato: 0,
+    egg: 0,
+    bacon: 1,
+    cheese: 1,
+    protein: 1,
   },
   totalPrice: 0,
 };
@@ -30,6 +34,7 @@ const reducer = (state = initialState, action) => {
           [action.ingredientName]: state.ingredients[action.ingredientName - 1]
         }
       };
+
 
     default:
       return  state

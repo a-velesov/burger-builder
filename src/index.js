@@ -7,10 +7,19 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducer from './store/reducer';
+import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
+import burgerBuilderReducer from './store/reducers/burgerBuilder';
+import thunk from 'redux-thunk';
+import authReducer from './store/reducers/auth'
 
-const store = createStore(reducer)
+
+const rootReducer = combineReducers({
+  burgerBuilder: burgerBuilderReducer,
+  auth: authReducer
+})
+
+const store = createStore(rootReducer, compose(applyMiddleware(thunk)))
+
 
 const app = (
   <Provider store={store}>
