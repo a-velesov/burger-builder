@@ -6,6 +6,8 @@ import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
 import { Loading } from '../../components/UI/Loading/Loading';
 import { OrderCompleted } from '../../components/Burger/OrderSummary/OrderCompleted/OrderCompleted';
+import * as actionTypes from './../../store/actions'
+import { connect } from 'react-redux';
 
 const INGREDIENT_PRICES = {
   lettuce: 0.25,
@@ -48,8 +50,8 @@ class BurgerBuilder extends Component {
 
   state = {
     ingredients: initialIngredients,
-    totalIngredients: initialTotalIngredients,
     totalPrice: initialPrice,
+    totalIngredients: initialTotalIngredients,
     purchasable: false,
     purchasing: false,
     loading: false,
@@ -187,4 +189,17 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+const mapStateToProps = state => {
+  return {
+    ings: state.ingredients
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGRIDIENTS, ingredientName: ingName}),
+    onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGRIDIENTS, ingredientName: ingName})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (BurgerBuilder);
