@@ -9,7 +9,7 @@ export const Header = () => {
           <img src={ require('../../../../assets/title.png') } alt="React Burger Builder" />
           </a>
           <nav className={ classes.Nav }>
-            <span>Sign In</span>
+            <a href='/auth'>Sign In</a>
             <div className={classes.Cart}>
               <a href='/cart'>
               <img src={ require('../../../../assets/cart-icon.svg') } alt="cart" />

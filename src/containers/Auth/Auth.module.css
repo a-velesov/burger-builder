@@ -1,0 +1,14 @@
+.Auth {
+    margin: 2rem auto;
+}
+
+.Title {
+    margin: 2.5rem 0;
+    text-align: center;
+}
+
+.AuthForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

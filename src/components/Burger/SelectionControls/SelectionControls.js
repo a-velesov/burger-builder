@@ -100,7 +100,7 @@ class SelectionControls extends Component {
             action="Fast order"
             click={ fastOrder }
           />
-      </div>
+        </div>
       </div>
     );
   }
