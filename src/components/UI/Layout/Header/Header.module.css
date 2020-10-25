@@ -25,21 +25,14 @@
     align-items: center;
 }
 
-.Nav span {
-    font-size: 0.9em;
+.Nav a,
+span {
+    text-decoration: none;
+    color: var(--main);
+    font-size: 14px;
     font-weight: 500;
     padding-left: 1em;
     vertical-align: super;
-}
-
-
-.Nav a {
-    text-decoration: none;
-    color: var(--main);
-}
-
-.Nav span,
-.Nav img {
     cursor: pointer;
 }
 

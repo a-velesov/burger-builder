@@ -12,8 +12,8 @@ export const Header = () => {
             <a href='/auth'>Sign In</a>
             <div className={classes.Cart}>
               <a href='/cart'>
-              <img src={ require('../../../../assets/cart-icon.svg') } alt="cart" />
               <span>Cart</span>
+                <img src={ require('../../../../assets/cart-icon.svg') } alt="cart" />
               </a>
             </div>
           </nav>
