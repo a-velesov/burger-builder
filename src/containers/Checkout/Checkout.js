@@ -4,6 +4,8 @@ import axios from '../../Axios/axios-orders';
 import { Loading } from '../../components/UI/Loading/Loading';
 import classes from './Checkout.module.css';
 import { Input } from '../../components/UI/Input/Input';
+import { connect } from 'react-redux';
+import * as actionTypes from './../../store/actions/actionTypes';
 
 class Checkout extends Component {
 
@@ -127,8 +129,8 @@ class Checkout extends Component {
       formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
     }
     const order = {
-      ingredients: this.props.ingredients,
-      totalPrice: this.props.totalPrice,
+      ingredients: this.props.ings,
+      totalPrice: this.props.price,
       orderData: formData,
     };
     axios.post('/orders.json', order)
@@ -136,6 +138,7 @@ class Checkout extends Component {
         this.setState({
           loading: false,
         });
+        this.props.ingredientReset();
         this.props.history.push('/');
       })
       .catch(error => {
@@ -215,4 +218,20 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+const mapStateToProps = state => {
+  return {
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    ingredientReset: () => {
+      dispatch({
+      type: actionTypes.RESET_INGRIDIENTS,
+    })}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

@@ -17,12 +17,12 @@ const initialState = {
 export const INGREDIENT_PRICES = {
   lettuce: 0.25,
   onion: 0.25,
-  pickle: 0.75,
+  pickle: 0.5,
   tomato: 0.5,
-  egg: 0.75,
-  bacon: 0.75,
+  egg: 0.5,
+  bacon: 1,
   cheese: 0.5,
-  protein: 2.75,
+  protein: 3,
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,6 +47,9 @@ const reducer = (state = initialState, action) => {
         },
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
       };
+
+    case actionTypes.RESET_INGRIDIENTS:
+      return initialState;
 
     default:
       return state;
