@@ -6,7 +6,7 @@ import SelectionControls from '../../components/Burger/SelectionControls/Selecti
 import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary';
 import { OrderCompleted } from '../../components/Burger/OrderSummary/OrderCompleted/OrderCompleted';
-import * as actionTypes from './../../store/actions/actionTypes';
+import * as burgerBuilderActions from './../../store/actions';
 import { INGREDIENT_PRICES } from '../../store/reducers/burgerBuilder';
 
 
@@ -105,14 +105,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: (ingName) => dispatch({
-      type: actionTypes.ADD_INGRIDIENTS,
-      ingredientName: ingName,
-    }),
-    onIngredientRemoved: (ingName) => dispatch({
-      type: actionTypes.REMOVE_INGRIDIENTS,
-      ingredientName: ingName,
-    }),
+    onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+    onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
   };
 };
 
