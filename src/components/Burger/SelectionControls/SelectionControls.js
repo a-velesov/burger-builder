@@ -14,7 +14,7 @@ const SelectionControls = ({
 }) => {
 
   const updatedTotal = () => {
-    return Object.values(ingredients).reduce((sum, cur) => sum + cur);
+    return Object.values(ingredients).reduce((sum, cur) => sum + cur, 0);
   };
 
   //loop through ingredients to create individual control

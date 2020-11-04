@@ -85,6 +85,15 @@ class Checkout extends Component {
         valid: true,
         validation: {},
       },
+      date: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'hidden',
+        },
+        value: new Date().toLocaleString(),
+        validation: {},
+        valid: true,
+      },
     },
     loading: false,
     formIsValid: false,

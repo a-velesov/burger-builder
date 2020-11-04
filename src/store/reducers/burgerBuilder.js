@@ -1,17 +1,8 @@
 import * as actionTypes from './../actions/actionTypes';
 
 const initialState = {
-  ingredients: {
-    lettuce: 1,
-    onion: 1,
-    pickle: 0,
-    tomato: 0,
-    egg: 0,
-    bacon: 1,
-    cheese: 1,
-    protein: 1,
-  },
-  totalPrice: 5,
+  ingredients: {},
+  totalPrice: 0,
 };
 
 export const INGREDIENT_PRICES = {
@@ -50,6 +41,21 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.RESET_INGRIDIENTS:
       return initialState;
+
+    case actionTypes.SET_INGRIDIENTS:
+      return {
+        ...state,
+        ingredients: {
+          lettuce: action.ingredients.lettuce,
+          onion: action.ingredients.onion,
+          pickle: action.ingredients.pickle,
+          tomato: action.ingredients.tomato,
+          egg: action.ingredients.egg,
+          bacon: action.ingredients.bacon,
+          cheese: action.ingredients.cheese,
+          protein: action.ingredients.protein
+        },
+      };
 
     default:
       return state;

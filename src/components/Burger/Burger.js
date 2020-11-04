@@ -17,7 +17,7 @@ const Burger = (props) => {
     }, []);
 
   if(transformedIngredient.length === 0) {
-    transformedIngredient = <p>Please start adding ingredients</p>
+    transformedIngredient = <p className={classes.Info}>Please start adding ingredients</p>
   }
 
   return (

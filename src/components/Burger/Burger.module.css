@@ -28,6 +28,10 @@
     opacity: .2;
 }
 
+.Info {
+    padding: 10px 0;
+}
+
 @media (max-width: 1250px) {
     .Burger {
         padding: 10%;

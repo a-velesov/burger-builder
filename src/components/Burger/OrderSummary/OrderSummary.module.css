@@ -25,3 +25,9 @@
     width: 30px;
     margin-right: 1em;
 }
+
+.ButtonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

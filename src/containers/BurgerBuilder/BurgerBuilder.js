@@ -8,20 +8,21 @@ import { OrderSummary } from '../../components/Burger/OrderSummary/OrderSummary'
 import { OrderCompleted } from '../../components/Burger/OrderSummary/OrderCompleted/OrderCompleted';
 import * as burgerBuilderActions from './../../store/actions';
 import { INGREDIENT_PRICES } from '../../store/reducers/burgerBuilder';
+import axios from '../../Axios/axios-orders';
 
-
-//start component
 class BurgerBuilder extends Component {
 
   state = {
-    purchasable: false,
     purchasing: false,
-    loading: false,
     completed: false,
   };
 
+  componentDidMount() {
+    console.log(this.props.ings);
+    if(Object.keys(this.props.ings).length === 0) this.props.onInitIngredients();
+  }
+
   purchasingHandler = () => {
-    //toggle purchasing true/false
     this.setState({ purchasing: !this.state.purchasing });
   };
 
@@ -107,7 +108,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
     onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BurgerBuilder);
+export default connect(mapStateToProps, mapDispatchToProps)(BurgerBuilder, axios);
