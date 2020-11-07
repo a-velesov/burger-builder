@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Button } from '../../components/UI/Button/Button';
-import axios from '../../Axios/axios-orders';
 import { Loading } from '../../components/UI/Loading/Loading';
 import classes from './Checkout.module.css';
 import { Input } from '../../components/UI/Input/Input';
 import { connect } from 'react-redux';
-import * as actionTypes from './../../store/actions/actionTypes';
+import * as actions from './../../store/actions/';
 
 class Checkout extends Component {
 
@@ -142,19 +141,8 @@ class Checkout extends Component {
       totalPrice: this.props.price,
       orderData: formData,
     };
-    axios.post('/orders.json', order)
-      .then(response => {
-        this.setState({
-          loading: false,
-        });
-        this.props.ingredientReset();
-        this.props.history.push('/');
-      })
-      .catch(error => {
-        this.setState({
-          loading: true,
-        });
-      });
+    this.props.onOrderBurger(order);
+    this.props.history.push('/');
   };
 
   inputChangeHandler = (e, inputIdentifier) => {
@@ -237,9 +225,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     ingredientReset: () => {
-      dispatch({
-      type: actionTypes.RESET_INGRIDIENTS,
-    })}
+      dispatch(actions.resetIngredients())},
+    onOrderBurger: (orderData) => {
+      dispatch(actions.purchaseBurgerStart(orderData))
+    },
   }
 }
 

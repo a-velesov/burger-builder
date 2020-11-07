@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './CartSummary.module.css';
-import { OrderSummary } from '../Burger/OrderSummary/OrderSummary';
+import { OrderSummary } from '../Order/OrderSummary/OrderSummary';
 import { connect } from 'react-redux';
 
 const CartSummary = (props) => {

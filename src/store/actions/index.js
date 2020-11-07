@@ -1,9 +1,14 @@
 export {
-  auth
-} from './auth'
+  auth,
+} from './auth';
 
 export {
   addIngredient,
   removeIngredient,
-  initIngredients
-} from './burgerBuilder'
+  initIngredients,
+  resetIngredients
+} from './burgerBuilder';
+
+export {
+  purchaseBurgerStart,
+} from './order';
