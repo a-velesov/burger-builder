@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button } from '../../components/UI/Button/Button';
-import { Loading } from '../../components/UI/Loading/Loading';
 import classes from './Checkout.module.css';
 import { Input } from '../../components/UI/Input/Input';
 import { connect } from 'react-redux';
@@ -94,7 +93,6 @@ class Checkout extends Component {
         valid: true,
       },
     },
-    loading: false,
     formIsValid: false,
   };
 
@@ -129,9 +127,7 @@ class Checkout extends Component {
 
   orderSubmit = (e) => {
     e.preventDefault();
-    this.setState({
-      loading: true,
-    });
+
     const formData = {};
     for(let formElementIdentifier in this.state.orderForm) {
       formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
@@ -183,33 +179,29 @@ class Checkout extends Component {
     return (
       <div className={ classes.Checkout }>
         <h2 className={ classes.Title }>Checkout</h2>
-        {
-          this.state.loading
-            ? <Loading />
-            : <form onSubmit={ this.orderSubmit } className={ classes.PersonalDataForm }>
-              {
-                formElementsArray.map(formElement => {
-                  return <Input
-                    key={ formElement.id }
-                    elementType={ formElement.config.elementType }
-                    elementConfig={ formElement.config.elementConfig }
-                    value={ formElement.config.value }
-                    invalid={ !formElement.config.valid }
-                    shouldValidate={ formElement.config.validation }
-                    touched={ formElement.config.touched }
-                    changed={ (e) => this.inputChangeHandler(e, formElement.id) }
-                  />;
-                })
-              }
-              <div className={classes.ButtonSubmit}>
-                <Button
-                  action='Checkout'
-                  type={ !this.state.formIsValid ? 'disabled' : 'primary' }
-                  disabled={ !this.state.formIsValid }
-                />
-              </div>
-              </form>
-        }
+        <form onSubmit={ this.orderSubmit } className={ classes.PersonalDataForm }>
+          {
+            formElementsArray.map(formElement => {
+              return <Input
+                key={ formElement.id }
+                elementType={ formElement.config.elementType }
+                elementConfig={ formElement.config.elementConfig }
+                value={ formElement.config.value }
+                invalid={ !formElement.config.valid }
+                shouldValidate={ formElement.config.validation }
+                touched={ formElement.config.touched }
+                changed={ (e) => this.inputChangeHandler(e, formElement.id) }
+              />;
+            })
+          }
+          <div className={ classes.ButtonSubmit }>
+            <Button
+              action='Checkout'
+              type={ !this.state.formIsValid ? 'disabled' : 'primary' }
+              disabled={ !this.state.formIsValid }
+            />
+          </div>
+        </form>
       </div>
     );
   }
@@ -224,12 +216,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    ingredientReset: () => {
-      dispatch(actions.resetIngredients())},
     onOrderBurger: (orderData) => {
-      dispatch(actions.purchaseBurgerStart(orderData))
+      dispatch(actions.purchaseBurger(orderData));
     },
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

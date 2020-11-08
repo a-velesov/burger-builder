@@ -21,12 +21,6 @@ export const setIngredients = (ingredients) => {
   };
 };
 
-export const resetIngredients = () => {
-  return {
-    type: actionTypes.RESET_INGRIDIENTS,
-  };
-};
-
 export const initIngredients = () => {
   return dispatch => {
     axios.get('https://burger-b6263.firebaseio.com/ingredients.json')

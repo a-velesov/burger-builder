@@ -1,5 +1,7 @@
 .Spinner {
-    width: 25%;
-    display: block;
-    margin: 0 auto;
+    width: 40%;
+    position: fixed;
+    right: 0;
+    left: 0;
+    margin: auto;
 }

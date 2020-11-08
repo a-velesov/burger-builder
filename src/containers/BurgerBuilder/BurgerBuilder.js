@@ -6,8 +6,9 @@ import SelectionControls from '../../components/Burger/SelectionControls/Selecti
 import { Modal } from '../../components/UI/Modal/Modal';
 import { OrderSummary } from '../../components/Order/OrderSummary/OrderSummary';
 import { OrderCompleted } from '../../components/Order/OrderSummary/OrderCompleted/OrderCompleted';
-import * as burgerBuilderActions from './../../store/actions';
+import * as actions from './../../store/actions';
 import { INGREDIENT_PRICES } from '../../store/reducers/burgerBuilder';
+import { Loading } from '../../components/UI/Loading/Loading';
 
 class BurgerBuilder extends Component {
 
@@ -17,7 +18,6 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.ings);
     if(Object.keys(this.props.ings).length === 0) this.props.onInitIngredients();
   }
 
@@ -33,19 +33,8 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-
-    const queryParams = [];
-    for(let i in this.props.ings) {
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ings[i]));
-    }
-
-    queryParams.push('price=' + this.props.price);
-
-    const queryString = queryParams.join('&');
-    this.props.history.push({
-      pathname: '/cart',
-      search: '?' + queryString,
-    });
+    this.props.onInitPurchase();
+    this.props.history.push('/cart');
   };
 
   render() {
@@ -65,6 +54,9 @@ class BurgerBuilder extends Component {
 
         <OrderCompleted show={ this.state.completed } close={ this.completeHandler } />
 
+        {Object.keys(this.props.ings).length === 0 || this.props.loading
+          ? <Loading />
+          : <>
         <div className={ classes.TitleContainer }>
           <div>
             {/*<p className={ classes.SubTitle }>React</p>*/ }
@@ -90,6 +82,7 @@ class BurgerBuilder extends Component {
             fastOrder={ this.purchasingHandler }
           />
         </div>
+        </>}
       </article>
     );
   }
@@ -99,15 +92,17 @@ const mapStateToProps = state => {
   return {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
+    loading: state.order.loading,
     ingsPrice: INGREDIENT_PRICES,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-    onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
-    onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients()),
+    onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+    onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(actions.initIngredients()),
+    onInitPurchase: () => dispatch(actions.purchaseInit()),
   };
 };
 
