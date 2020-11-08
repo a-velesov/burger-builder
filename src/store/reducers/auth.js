@@ -5,13 +5,11 @@ const initialState = {
   token: null,
   userId: null,
   error: null,
-  loading: false,
 };
 
-const authStart = (state, action) => {
+const authStart = (state) => {
   return updateObject(state, {
     error: null,
-    loading: true,
   });
 };
 
@@ -20,14 +18,12 @@ const authSuccess = (state, action) => {
     token: action.idToken,
     userId: action.userId,
     error: null,
-    loading: false,
   });
 };
 
 const authFail = (state, action) => {
   return updateObject(state, {
     error: action.error,
-    loading: false,
   });
 };
 
