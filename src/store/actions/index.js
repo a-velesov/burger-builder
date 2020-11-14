@@ -1,6 +1,7 @@
 export {
   auth,
-  logout
+  logout,
+  authChackState
 } from './auth';
 
 export {

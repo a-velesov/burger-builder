@@ -23,6 +23,8 @@ export const authFail = (error) => {
 };
 
 export const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('expDate');
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
@@ -49,11 +51,12 @@ export const auth = (email, password, isSignup) => {
     if(!isSignup) {
       url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCQqMQSL8Hrlb_zmvTfnW2pIm3z3l79EM4';
     }
-    console.log(authData, 'authData');
     if(email && password) {
       axios.post(url, authData)
         .then(response => {
-          console.log(response);
+          const expDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+          localStorage.setItem('token', response.data.idToken);
+          localStorage.setItem('expDate', expDate);
           dispatch(authSuccess(response.data.idToken, response.data.localId));
           dispatch(checkAuthTimeout(response.data.expiresIn));
         })
@@ -63,3 +66,19 @@ export const auth = (email, password, isSignup) => {
     }
   };
 };
+
+export const authChackState = () => {
+  return dispatch => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      dispatch(logout());
+    } else {
+      const expTime = new Date(localStorage.getItem('expDate'));
+      if(expTime <= new Date()) {
+        dispatch(logout());
+      }
+      dispatch(authSuccess(token));
+      dispatch(checkAuthTimeout((expTime.getTime() - new Date().getTime()) / 1000));
+    }
+  }
+}

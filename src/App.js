@@ -7,8 +7,15 @@ import Cart from './containers/Cart/Cart';
 import Auth from './containers/Auth/Auth';
 import Orders from './containers/Orders/Orders';
 import Logout from './containers/Auth/Logout/Logout';
+import * as actions from './store/actions';
+import { connect } from 'react-redux';
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.onTryAutoSign();
+  }
+
   render() {
     return (
       <>
@@ -26,4 +33,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSign: () => dispatch(actions.authChackState()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);
