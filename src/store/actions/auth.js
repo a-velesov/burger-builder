@@ -72,16 +72,13 @@ export const auth = (email, password, isSignup) => {
 export const authChackState = () => {
   return dispatch => {
     const token = localStorage.getItem('token');
-    if (!token) {
+    const expTime = new Date(localStorage.getItem('expDate'));
+    const userId = localStorage.getItem('userId');
+    if(expTime <= new Date()) {
       dispatch(logout());
     } else {
-      const expTime = new Date(localStorage.getItem('expDate'));
-      if(expTime <= new Date()) {
-        dispatch(logout());
-      } else {
-        const userId = localStorage.getItem('userId');
-        dispatch(authSuccess(token, userId));
-        dispatch(checkAuthTimeout((expTime.getTime() - new Date().getTime()) / 1000));}
+      dispatch(authSuccess(token, userId));
+      dispatch(checkAuthTimeout((expTime.getTime() - new Date().getTime()) / 1000));
     }
-  }
-}
+  };
+};

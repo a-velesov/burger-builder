@@ -13,7 +13,7 @@ import { Loading } from '../../components/UI/Loading/Loading';
 class BurgerBuilder extends Component {
 
   state = {
-    purchasing: false,
+    open: false,
     completed: false,
   };
 
@@ -21,15 +21,16 @@ class BurgerBuilder extends Component {
     if(Object.keys(this.props.ings).length === 0) this.props.onInitIngredients();
   }
 
-  purchasingHandler = () => {
-    this.setState({ purchasing: !this.state.purchasing });
+  openHandler = () => {
+    this.setState({ open: !this.state.open });
   };
 
   completeHandler = () => {
     this.setState({
       completed: !this.state.completed,
-      purchasing: false,
+      open: false,
     });
+    this.props.onInitIngredients();
   };
 
   purchaseContinueHandler = () => {
@@ -41,13 +42,13 @@ class BurgerBuilder extends Component {
 
     return (
       <article className={ classes.BurgerBuilder }>
-        <Modal show={ this.state.purchasing }
-               close={ this.purchasingHandler }
+        <Modal show={ this.state.open }
+               close={ this.openHandler }
         >
           <OrderSummary
             ingredients={ this.props.ings }
             totalPrice={ this.props.price }
-            purchasingHandler={ this.purchasingHandler }
+            purchasingHandler={ this.openHandler }
             purchaseContinueHandler={ this.completeHandler }
           />
         </Modal>
@@ -79,7 +80,7 @@ class BurgerBuilder extends Component {
             ingredients={ this.props.ings }
             price={ this.props.ingsPrice }
             purchasingHandler={ this.purchaseContinueHandler }
-            fastOrder={ this.purchasingHandler }
+            fastOrder={ this.openHandler }
           />
         </div>
         </>}
@@ -87,6 +88,11 @@ class BurgerBuilder extends Component {
     );
   }
 }
+
+
+// TODO 1. провести рефакторинг наименований переменных
+// TODO 2. fast order рефактор
+// TODO 3. переместить всю авторизацию в .env / скачать firebase плагин
 
 const mapStateToProps = state => {
   return {

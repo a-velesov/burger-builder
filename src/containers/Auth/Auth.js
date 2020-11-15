@@ -16,7 +16,7 @@ class Auth extends Component {
           type: 'email',
           placeholder: 'Your Email',
         },
-        value: '',
+        value: 'test@test.ru', //demo
         validation: {
           required: true,
           isEmail: true,
@@ -34,7 +34,7 @@ class Auth extends Component {
           required: true,
           minLength: 6,
         },
-        value: '',
+        value: '1q2w3e', //demo
         valid: true,
         touched: false,
       },
