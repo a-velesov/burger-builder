@@ -11,6 +11,7 @@ const SelectionControls = ({
   price,
   purchasingHandler,
   fastOrder,
+  isAuth,
 }) => {
 
   const updatedTotal = () => {
@@ -30,6 +31,19 @@ const SelectionControls = ({
     />
   ));
 
+  let errorMessage = '';
+
+  const disabledButton = () => {
+    if (updatedTotal() < 1) {
+      errorMessage = 'Please add ingredients'
+      return true;
+    } else if (!isAuth) {
+      errorMessage = 'Sign-in or login'
+      return true;
+    } else return false;
+  }
+  // TODO сделать наоборот кнопки. На order => disabled, fast => без авторизации (сейчас ошибка с токеном)
+
   return (
     <div className={ classes.SelectionControls }>
       <h2 className={ classes.TotalPrice }>${ totalPrice }</h2>
@@ -44,11 +58,15 @@ const SelectionControls = ({
       <div className={ classes.SelectionContainer }>{ displayControls }</div>
 
       <div className={ classes.ButtonContainer }>
-        <Button type="primary" action="Order Now" click={ purchasingHandler } />
+        <Button
+          type="primary"
+          action="Order Now"
+          click={ purchasingHandler } />
         <Button
           type="secondary"
           action="Fast order"
           click={ fastOrder }
+          disabled={disabledButton()}
         />
       </div>
     </div>

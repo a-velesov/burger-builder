@@ -79,6 +79,7 @@ class BurgerBuilder extends Component {
             totalPrice={ this.props.price }
             ingredients={ this.props.ings }
             price={ this.props.ingsPrice }
+            isAuth = { this.props.isAuth }
             purchasingHandler={ this.purchaseContinueHandler }
             fastOrder={ this.openHandler }
           />
@@ -100,6 +101,7 @@ const mapStateToProps = state => {
     price: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
     ingsPrice: INGREDIENT_PRICES,
+    isAuth: state.auth.token !== null
   };
 };
 

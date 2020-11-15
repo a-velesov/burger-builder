@@ -18,5 +18,8 @@ export const Button = ({ type, action, click, disabled }) => {
     default:
       style = classes.Primary;
   }
+
+  if (disabled) style = classes.Disabled;
+
   return <button disabled={ disabled } className={ style } onClick={ click }>{ action }</button>;
 };
