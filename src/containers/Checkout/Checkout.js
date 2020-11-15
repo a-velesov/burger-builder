@@ -136,8 +136,9 @@ class Checkout extends Component {
       ingredients: this.props.ings,
       totalPrice: this.props.price,
       orderData: formData,
+      userId: this.props.userId
     };
-    this.props.onOrderBurger(order);
+    this.props.onOrderBurger(order, this.props.token);
     this.props.history.push('/');
   };
 
@@ -211,13 +212,15 @@ const mapStateToProps = state => {
   return {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
+    userId: state.auth.userId,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOrderBurger: (orderData) => {
-      dispatch(actions.purchaseBurger(orderData));
+    onOrderBurger: (orderData, token) => {
+      dispatch(actions.purchaseBurger(orderData, token));
     },
   };
 };
