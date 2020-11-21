@@ -38,7 +38,7 @@ const SelectionControls = ({
       errorMessage = 'Please add ingredients'
       return true;
     } else if (!isAuth) {
-      errorMessage = 'Sign-in or login'
+      errorMessage = 'Sign-in or use fast order'
       return true;
     } else return false;
   }
@@ -61,15 +61,14 @@ const SelectionControls = ({
           type="secondary"
           action="Fast order"
           click={ fastOrder }
+          disabled={updatedTotal() < 1}
         />
-        <div className={ classes.ButtonOrder }>
         <Button
           type="primary"
           action="Order Now"
           disabled={disabledButton()}
           click={ purchasingHandler } />
           <span className={classes.Error}>{errorMessage}</span>
-        </div>
       </div>
     </div>
   );

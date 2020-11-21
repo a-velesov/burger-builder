@@ -36,20 +36,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding-bottom: 15px;
-}
-
-.ButtonOrder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     position: relative;
+    padding-bottom: 15px;
 }
 
 .Error {
     position: absolute;
-    bottom: -15px;
-    text-align: center;
+    bottom: 0;
+    color: red;
+    font-style: italic;
 }
 
 @media (max-width: 900px) {
