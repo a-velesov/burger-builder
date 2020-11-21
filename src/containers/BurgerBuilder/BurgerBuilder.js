@@ -50,6 +50,7 @@ class BurgerBuilder extends Component {
             totalPrice={ this.props.price }
             purchasingHandler={ this.openHandler }
             purchaseContinueHandler={ this.completeHandler }
+            modal={true}
           />
         </Modal>
 

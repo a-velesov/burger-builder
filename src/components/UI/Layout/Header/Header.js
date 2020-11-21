@@ -17,7 +17,7 @@ export const Header = ({ isAuth }) => {
               <img src={ require('../../../../assets/cart-icon.svg') } alt="cart" />
             </NavLink>
           </div>
-          { isAuth ? <NavLink to={ '/logout' }>Logout</NavLink> : <NavLink to={ '/auth' }>Login</NavLink> }
+          { isAuth ? <NavLink to={ '/logout' }>Logout</NavLink> : <NavLink to={ '/auth' }>Sign in</NavLink> }
         </nav>
       </div>
     </header>

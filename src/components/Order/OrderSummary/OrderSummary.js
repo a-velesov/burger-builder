@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './OrderSummary.module.css';
 import { Button } from '../../UI/Button/Button';
 
-export const OrderSummary = ({ ingredients, purchasingHandler, purchaseContinueHandler, totalPrice }) => {
+export const OrderSummary = ({ ingredients, purchasingHandler, purchaseContinueHandler, totalPrice, modal }) => {
 
   const displayIngredients = Object.keys(ingredients)
     .filter((el) => ingredients[el] > 0) //only show used ingredients

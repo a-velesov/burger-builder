@@ -42,7 +42,6 @@ const SelectionControls = ({
       return true;
     } else return false;
   }
-  // TODO сделать наоборот кнопки. На order => disabled, fast => без авторизации (сейчас ошибка с токеном)
 
   return (
     <div className={ classes.SelectionControls }>
@@ -59,15 +58,18 @@ const SelectionControls = ({
 
       <div className={ classes.ButtonContainer }>
         <Button
-          type="primary"
-          action="Order Now"
-          click={ purchasingHandler } />
-        <Button
           type="secondary"
           action="Fast order"
           click={ fastOrder }
-          disabled={disabledButton()}
         />
+        <div className={ classes.ButtonOrder }>
+        <Button
+          type="primary"
+          action="Order Now"
+          disabled={disabledButton()}
+          click={ purchasingHandler } />
+          <span className={classes.Error}>{errorMessage}</span>
+        </div>
       </div>
     </div>
   );
