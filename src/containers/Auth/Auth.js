@@ -125,6 +125,7 @@ class Auth extends Component {
           }
           <Button action='Submit' />
           <Button type='secondary'
+                  typeButton='button'
                   click={ this.switchAuthModeHandler }
                   action={ `Switch to ${ this.state.isSignup ? 'Login' : 'SignUp' }` }
           />
