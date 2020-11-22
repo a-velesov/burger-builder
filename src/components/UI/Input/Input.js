@@ -11,19 +11,11 @@ export const Input = (props) => {
   }
 
   switch(props.elementType) {
-    case('input'):
-      inputElement = <input className={ inputClasses.join(' ') }
-                            value={ props.value }
-                            onChange={ props.changed }
-                            { ...props.elementConfig }
-      />;
-      break;
-
     case('textarea'):
       inputElement = <textarea className={ inputClasses.join(' ') }
                                value={ props.value }
                                onChange={ props.changed }
-                               { ...props.elementConfig }
+                               { ...props }
       />;
       break;
 
@@ -45,25 +37,26 @@ export const Input = (props) => {
             })
           }
 
-      </select>);
+        </select>);
       break;
 
     default:
-      inputElement = <input className={ inputClasses }
-                            value={ props.value }
-                            { ...props.elementConfig }
+      inputElement = <input className={ inputClasses.join(' ') }
+                            defaultValue={ props.value }
+                            type={ props.type }
+                            onChange={ props.changed }
       />;
 
   }
 
   let validationError = null;
   if(props.invalid && props.touched) {
-    validationError = <p className={classes.ValidationError}>Please enter a valid value!</p>;
+    validationError = <p className={ classes.ValidationError }>Please enter a valid value!</p>;
   }
 
   return (
     <div className={ classes.Checkout }>
-      <label className={ classes.Label }>{ props.elementConfig.label }</label>
+      <label className={ classes.Label }>{ props.type }</label>
       { inputElement }
       { validationError }
     </div>
