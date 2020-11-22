@@ -4,6 +4,7 @@ import classes from './Checkout.module.css';
 import { Input } from '../../components/UI/Input/Input';
 import { connect } from 'react-redux';
 import * as actions from './../../store/actions/';
+import { checkValidity } from '../../sharing';
 
 class Checkout extends Component {
 
@@ -96,35 +97,6 @@ class Checkout extends Component {
     formIsValid: false,
   };
 
-  checkValidity = (value, rules) => {
-    let isValid = true;
-
-    if(!rules) {
-      return true;
-    }
-
-    if(rules.required) {
-      isValid = value.trim() !== '' && isValid;
-    }
-
-    if(rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if(rules.isEmail) {
-      const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-      isValid = pattern.test(value) && isValid;
-    }
-
-    if(rules.isNumeric) {
-      const pattern = /^\d+$/;
-      isValid = pattern.test(value) && isValid;
-    }
-
-    return isValid;
-
-  };
-
   orderSubmit = (e) => {
     e.preventDefault();
 
@@ -152,7 +124,7 @@ class Checkout extends Component {
     };
 
     updateFormElement.value = e.target.value;
-    updateFormElement.valid = this.checkValidity(updateFormElement.value, updateFormElement.validation);
+    updateFormElement.valid = checkValidity(updateFormElement.value, updateFormElement.validation);
     updateFormElement.touched = true;
     updatedOrderForm[inputIdentifier] = updateFormElement;
 
