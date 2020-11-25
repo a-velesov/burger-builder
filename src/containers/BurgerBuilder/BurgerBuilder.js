@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Burger from '../../components/Burger/Burger';
 import classes from './BurgerBulder.module.css';
@@ -10,53 +10,48 @@ import * as actions from './../../store/actions';
 import { INGREDIENT_PRICES } from '../../store/reducers/burgerBuilder';
 import { Loading } from '../../components/UI/Loading/Loading';
 
-class BurgerBuilder extends Component {
 
-  state = {
-    open: false,
-    completed: false,
+export const BurgerBuilder = (props) => {
+
+  const [open, setOpen] = useState(false);
+  const [completed, setCompleted] = useState(false);
+
+  useEffect(() => {
+    if(Object.keys(props.ings).length === 0) props.onInitIngredients();
+  }, [])
+
+  const openHandler = () => {
+    setOpen(!open);
   };
 
-  componentDidMount() {
-    if(Object.keys(this.props.ings).length === 0) this.props.onInitIngredients();
-  }
-
-  openHandler = () => {
-    this.setState({ open: !this.state.open });
+  const completeHandler = () => {
+    setOpen(false);
+    setCompleted(!completed);
+    props.onInitIngredients();
   };
 
-  completeHandler = () => {
-    this.setState({
-      completed: !this.state.completed,
-      open: false,
-    });
-    this.props.onInitIngredients();
+  const purchaseContinueHandler = () => {
+    props.onInitPurchase();
+    props.history.push('/cart');
   };
-
-  purchaseContinueHandler = () => {
-    this.props.onInitPurchase();
-    this.props.history.push('/cart');
-  };
-
-  render() {
 
     return (
       <article className={ classes.BurgerBuilder }>
-        <Modal show={ this.state.open }
-               close={ this.openHandler }
+        <Modal show={ open }
+               close={ openHandler }
         >
           <OrderSummary
-            ingredients={ this.props.ings }
-            totalPrice={ this.props.price }
-            purchasingHandler={ this.openHandler }
-            purchaseContinueHandler={ this.completeHandler }
+            ingredients={ props.ings }
+            totalPrice={ props.price }
+            purchasingHandler={ openHandler }
+            purchaseContinueHandler={ completeHandler }
             modal={true}
           />
         </Modal>
 
-        <OrderCompleted show={ this.state.completed } close={ this.completeHandler } />
+        <OrderCompleted show={ completed } close={ completeHandler } />
 
-        {Object.keys(this.props.ings).length === 0 || this.props.loading
+        {Object.keys(props.ings).length === 0 || props.loading
           ? <Loading />
           : <>
         <div className={ classes.TitleContainer }>
@@ -70,30 +65,27 @@ class BurgerBuilder extends Component {
         </div>
 
         <div className={ classes.Burger }>
-          <Burger ingredients={ this.props.ings } />
+          <Burger ingredients={ props.ings } />
         </div>
 
         <div className={ classes.SelectionControls }>
           <SelectionControls
-            ingredientAdded={ this.props.onIngredientAdded }
-            ingredientRemoved={ this.props.onIngredientRemoved }
-            totalPrice={ this.props.price }
-            ingredients={ this.props.ings }
-            price={ this.props.ingsPrice }
-            isAuth = { this.props.isAuth }
-            purchasingHandler={ this.purchaseContinueHandler }
-            fastOrder={ this.openHandler }
+            ingredientAdded={ props.onIngredientAdded }
+            ingredientRemoved={ props.onIngredientRemoved }
+            totalPrice={ props.price }
+            ingredients={ props.ings }
+            price={ props.ingsPrice }
+            isAuth = { props.isAuth }
+            purchasingHandler={ purchaseContinueHandler }
+            fastOrder={ openHandler }
           />
         </div>
         </>}
       </article>
     );
-  }
-}
-
+};
 
 // TODO 1. провести рефакторинг наименований переменных
-// TODO 2. fast order рефактор
 // TODO 3. переместить всю авторизацию в .env / скачать firebase плагин
 
 const mapStateToProps = state => {
