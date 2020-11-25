@@ -1,43 +1,38 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import CartSummary from '../../components/CartSummary/CartSummary';
 import { Route } from 'react-router-dom';
 import Checkout from '../Checkout/Checkout';
 import { connect } from 'react-redux';
 
-class Cart extends Component {
 
-  state = {
-    checkout: false
+export const Cart = (props) => {
+
+  const [checkout, setCheckout] = useState(false);
+
+  const checkoutCancelHandler = () => {
+    props.history.goBack();
   };
 
-  checkoutCancelHandler = () => {
-    this.props.history.goBack();
+  const checkoutContinueHandler = () => {
+    props.history.replace('/cart/checkout');
+    setCheckout(true);
   };
 
-  checkoutContinueHandler = () => {
-    this.props.history.replace('/cart/checkout');
-    this.setState({
-      checkout: true
-    })
-  };
-
-  render() {
     return (
       <>
         {
-          this.state.checkout
+          checkout
             ?  ''
             : <CartSummary
-              checkoutCancelHandler={ this.checkoutCancelHandler }
-              checkoutContinueHandler={ this.checkoutContinueHandler }
+              checkoutCancelHandler={ checkoutCancelHandler }
+              checkoutContinueHandler={ checkoutContinueHandler }
             />
         }
-        <Route path={ this.props.match.path + '/checkout' }
+        <Route path={ props.match.path + '/checkout' }
                component={Checkout}
         />
       </>
     );
-  }
 }
 
 const mapStateToProps = state => {
