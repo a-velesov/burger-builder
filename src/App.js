@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Layout from './components/UI/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
@@ -10,28 +10,25 @@ import Logout from './containers/Auth/Logout/Logout';
 import * as actions from './store/actions';
 import { connect } from 'react-redux';
 
-class App extends Component {
 
-  componentDidMount() {
-    this.props.onTryAutoSign();
-  }
+export const App = props => {
 
-  render() {
-    return (
-      <>
-        <Layout>
-          <Switch>
-            <Route path='/cart' component={ Cart } />
-            <Route path='/orders' component={ Orders } />
-            <Route path='/auth' component={ Auth } />
-            <Route path='/logout' component={ Logout } />
-            <Route path='/' exact component={ BurgerBuilder } />
-          </Switch>
-        </Layout>
-      </>
-    );
-  }
-}
+  useEffect(() =>{
+    props.onTryAutoSign();
+  }, [])
+
+  return (
+      <Layout>
+        <Switch>
+          <Route path='/cart' component={ Cart } />
+          <Route path='/orders' component={ Orders } />
+          <Route path='/auth' component={ Auth } />
+          <Route path='/logout' component={ Logout } />
+          <Route path='/' exact component={ BurgerBuilder } />
+        </Switch>
+      </Layout>
+  );
+};
 
 const mapDispatchToProps = dispatch => {
   return {

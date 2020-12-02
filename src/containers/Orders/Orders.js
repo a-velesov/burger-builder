@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import { Loading } from '../../components/UI/Loading/Loading';
 
-export const Orders = (props) => {
+const Orders = props => {
 
   useEffect(() => {
     props.onFetchOrders(props.token, props.userId);

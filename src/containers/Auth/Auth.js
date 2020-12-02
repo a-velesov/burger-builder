@@ -7,58 +7,101 @@ import classes from './Auth.module.css';
 import { Redirect } from 'react-router-dom';
 import { checkValidity } from '../../sharing';
 
+const Auth = props => {
 
-const Auth = (props) => {
-
-  const [isSignup, setIsSignup] = useState(false);
-  const [valueInput, setValueInput] = useState({email: 'test@test.ru', password: '1q2w3e' });
-  const [validation, ] = useState({email: {required: true, isEmail: true}, password: {required: true} });
+  const [authForm, setAuthForm] = useState({
+      email: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'email',
+          placeholder: 'Email',
+          label: 'Email',
+        },
+        value: 'test@test.ru', //demo
+        validation: {
+          required: true,
+          isEmail: true,
+        },
+        valid: true,
+        touched: false,
+      },
+      password: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'password',
+          placeholder: 'Password',
+          label: 'Password',
+        },
+        validation: {
+          required: true,
+          minLength: 6,
+        },
+        value: '1q2w3e', //demo
+        valid: true,
+        touched: false,
+      },
+  });
+    const [isSignup, setIsSignup] = useState(false);
 
   const inputChangedHandler = (e, controlName) => {
-    setValueInput({...valueInput, [controlName]: e.target.value });
-    checkValidity(e.target.value, validation[controlName]);
+    const updatedControls = {
+      ...authForm,
+      [controlName]: {
+        ...authForm[controlName],
+        value: e.target.value,
+        valid: checkValidity(e.target.value, authForm[controlName].validation),
+        touched: true,
+      },
+    };
+    setAuthForm(updatedControls);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    props.onAuth(valueInput.email, valueInput.password, isSignup);
+    props.onAuth(authForm.email.value, authForm.password.value, isSignup);
   };
 
-  return (
-    <>
+  const switchAuthModeHandler = () => {
+    setIsSignup(!isSignup);
+
+  };
+
+    const formElementsArray = [];
+    for(let key in authForm) {
+      formElementsArray.push({
+        id: key,
+        config: authForm[key],
+      });
+    }
+
+    return (
       <div className={ classes.Auth }>
         <h2 className={ classes.Title }>{ !isSignup ? 'Login' : 'Sign up' }</h2>
-        <form className={ classes.AuthForm } onSubmit={ (e) => submitHandler(e) }>
+        <form className={ classes.AuthForm } onSubmit={ submitHandler }>
+          { formElementsArray.map(formElement => (
             <Input
-              placeholder='Email'
-              value={ valueInput.email }
-              type='email'
-              invalid={ false }
-              shouldValidate={ validation.email }
-              touched={ false }
-              changed={ (e) => inputChangedHandler(e, 'email') }
+              key={ formElement.id }
+              elementType={ formElement.config.elementType }
+              elementConfig={ formElement.config.elementConfig }
+              value={ formElement.config.value }
+              invalid={ !formElement.config.valid }
+              shouldValidate={ formElement.config.validation }
+              touched={ formElement.touched }
+              changed={ (e) => inputChangedHandler(e, formElement.id) }
             />
-            <Input
-              placeholder='Password'
-              value={ valueInput.password }
-              type='password'
-              invalid={ false }
-              shouldValidate={ validation.password }
-              touched={ false }
-              changed={ (e) => inputChangedHandler(e, 'password') }
-            />
+          ))
+          }
           <Button action='Submit' />
           <Button type='secondary'
                   typeButton='button'
-                  click={ () => setIsSignup(!isSignup) }
+                  click={ switchAuthModeHandler }
                   action={ `Switch to ${ isSignup ? 'Login' : 'SignUp' }` }
           />
         </form>
         { props.token ? <Redirect to='/' /> : '' }
       </div>
-    </>
-  );
-};
+    );
+}
 
 const mapStateToProps = state => {
   return {

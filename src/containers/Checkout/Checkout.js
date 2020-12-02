@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Button } from '../../components/UI/Button/Button';
 import classes from './Checkout.module.css';
 import { Input } from '../../components/UI/Input/Input';
@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import * as actions from './../../store/actions/';
 import { checkValidity } from '../../sharing';
 
-class Checkout extends Component {
+const Checkout = props => {
 
-  state = {
-    orderForm: {
+  const [orderForm, setOrderForm] = useState({
       name: {
         elementType: 'input',
         elementConfig: {
@@ -93,30 +92,29 @@ class Checkout extends Component {
         validation: {},
         valid: true,
       },
-    },
-    formIsValid: false,
-  };
+  });
+    const [formIsValid, setFormIsValid] = useState(false);
 
-  orderSubmit = (e) => {
+  const orderSubmit = (e) => {
     e.preventDefault();
 
     const formData = {};
-    for(let formElementIdentifier in this.state.orderForm) {
-      formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+    for(let formElementIdentifier in orderForm) {
+      formData[formElementIdentifier] = orderForm[formElementIdentifier].value;
     }
     const order = {
-      ingredients: this.props.ings,
-      totalPrice: this.props.price,
+      ingredients: props.ings,
+      totalPrice: props.price,
       orderData: formData,
-      userId: this.props.userId
+      userId: props.userId
     };
-    this.props.onOrderBurger(order, this.props.token);
-    this.props.history.push('/');
+    props.onOrderBurger(order, props.token);
+    props.history.push('/');
   };
 
-  inputChangeHandler = (e, inputIdentifier) => {
+  const inputChangeHandler = (e, inputIdentifier) => {
     const updatedOrderForm = {
-      ...this.state.orderForm,
+      ...orderForm,
     };
 
     const updateFormElement = {
@@ -133,26 +131,23 @@ class Checkout extends Component {
       formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
     }
 
-    this.setState({
-      orderForm: updatedOrderForm,
-      formIsValid: formIsValid,
-    });
+    setOrderForm(updatedOrderForm);
+    setFormIsValid(formIsValid)
+
   };
 
-
-  render() {
     const formElementsArray = [];
-    for(let key in this.state.orderForm) {
+    for(let key in orderForm) {
       formElementsArray.push({
         id: key,
-        config: this.state.orderForm[key],
+        config: orderForm[key],
       });
     }
 
     return (
       <div className={ classes.Checkout }>
         <h2 className={ classes.Title }>Checkout</h2>
-        <form onSubmit={ this.orderSubmit } className={ classes.PersonalDataForm }>
+        <form onSubmit={ orderSubmit } className={ classes.PersonalDataForm }>
           {
             formElementsArray.map(formElement => {
               return <Input
@@ -163,21 +158,20 @@ class Checkout extends Component {
                 invalid={ !formElement.config.valid }
                 shouldValidate={ formElement.config.validation }
                 touched={ formElement.config.touched }
-                changed={ (e) => this.inputChangeHandler(e, formElement.id) }
+                changed={ (e) => inputChangeHandler(e, formElement.id) }
               />;
             })
           }
           <div className={ classes.ButtonSubmit }>
             <Button
               action='Checkout'
-              type={ !this.state.formIsValid ? 'disabled' : 'primary' }
-              disabled={ !this.state.formIsValid }
+              type={ !formIsValid ? 'disabled' : 'primary' }
+              disabled={ !formIsValid }
             />
           </div>
         </form>
       </div>
     );
-  }
 }
 
 const mapStateToProps = state => {
