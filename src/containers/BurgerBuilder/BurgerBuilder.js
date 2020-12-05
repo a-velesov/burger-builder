@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Burger from '../../components/Burger/Burger';
 import classes from './BurgerBulder.module.css';
 import SelectionControls from '../../components/Burger/SelectionControls/SelectionControls';
@@ -11,14 +11,24 @@ import { INGREDIENT_PRICES } from '../../store/reducers/burgerBuilder';
 import { Loading } from '../../components/UI/Loading/Loading';
 
 
-export const BurgerBuilder = (props) => {
+export const BurgerBuilder = props => {
 
-  const [open, setOpen] = useState(false);
-  const [completed, setCompleted] = useState(false);
+  const [ open, setOpen ] = useState(false);
+  const [ completed, setCompleted ] = useState(false);
+
+  const ings = useSelector(state => state.burgerBuilder.ingredients);
+  const price = useSelector(state => state.burgerBuilder.totalPrice);
+  const isAuth = useSelector(state => state.auth.token !== null);
+
+  const dispatch = useDispatch();
+  const onIngredientAdded = ingName => dispatch(actions.addIngredient(ingName));
+  const onIngredientRemoved = ingName => dispatch(actions.removeIngredient(ingName));
+  const onInitIngredients = () => dispatch(actions.initIngredients());
+  const onInitPurchase = () => dispatch(actions.purchaseInit());
 
   useEffect(() => {
-    if(Object.keys(props.ings).length === 0) props.onInitIngredients();
-  }, [])
+    if(Object.keys(ings).length === 0) onInitIngredients();
+  }, []);
 
   const openHandler = () => {
     setOpen(!open);
@@ -27,84 +37,65 @@ export const BurgerBuilder = (props) => {
   const completeHandler = () => {
     setOpen(false);
     setCompleted(!completed);
-    props.onInitIngredients();
+    onInitIngredients();
   };
 
   const purchaseContinueHandler = () => {
-    props.onInitPurchase();
+    onInitPurchase();
     props.history.push('/cart');
   };
 
-    return (
-      <article className={ classes.BurgerBuilder }>
-        <Modal show={ open }
-               close={ openHandler }
-        >
-          <OrderSummary
-            ingredients={ props.ings }
-            totalPrice={ props.price }
-            purchasingHandler={ openHandler }
-            purchaseContinueHandler={ completeHandler }
-            modal={true}
-          />
-        </Modal>
+  return (
+    <article className={ classes.BurgerBuilder }>
+      <Modal show={ open }
+             close={ openHandler }
+      >
+        <OrderSummary
+          ingredients={ ings }
+          totalPrice={ price }
+          purchasingHandler={ openHandler }
+          purchaseContinueHandler={ completeHandler }
+          modal={ true }
+        />
+      </Modal>
 
-        <OrderCompleted show={ completed } close={ completeHandler } />
+      <OrderCompleted show={ completed } close={ completeHandler } />
 
-        {Object.keys(props.ings).length === 0 || props.loading
-          ? <Loading />
-          : <>
-        <div className={ classes.TitleContainer }>
-          <div>
-            {/*<p className={ classes.SubTitle }>React</p>*/ }
-            <h2 className={ classes.Title }>Mystery Burger</h2>
-            <p className={ classes.Description }>
-              With Delicious Ancient Secret Sauce
-            </p>
+      { Object.keys(ings).length === 0
+        ? <Loading />
+        : <>
+          <div className={ classes.TitleContainer }>
+            <div>
+              {/*<p className={ classes.SubTitle }>React</p>*/ }
+              <h2 className={ classes.Title }>Mystery Burger</h2>
+              <p className={ classes.Description }>
+                With Delicious Ancient Secret Sauce
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className={ classes.Burger }>
-          <Burger ingredients={ props.ings } />
-        </div>
+          <div className={ classes.Burger }>
+            <Burger ingredients={ ings } />
+          </div>
 
-        <div className={ classes.SelectionControls }>
-          <SelectionControls
-            ingredientAdded={ props.onIngredientAdded }
-            ingredientRemoved={ props.onIngredientRemoved }
-            totalPrice={ props.price }
-            ingredients={ props.ings }
-            price={ props.ingsPrice }
-            isAuth = { props.isAuth }
-            purchasingHandler={ purchaseContinueHandler }
-            fastOrder={ openHandler }
-          />
-        </div>
-        </>}
-      </article>
-    );
+          <div className={ classes.SelectionControls }>
+            <SelectionControls
+              ingredientAdded={ onIngredientAdded }
+              ingredientRemoved={ onIngredientRemoved }
+              totalPrice={ price }
+              ingredients={ ings }
+              price={ INGREDIENT_PRICES }
+              isAuth={ isAuth }
+              purchasingHandler={ purchaseContinueHandler }
+              fastOrder={ openHandler }
+            />
+          </div>
+        </> }
+    </article>
+  );
 };
 
 // TODO 1. провести рефакторинг наименований переменных
 // TODO 3. переместить всю авторизацию в .env / скачать firebase плагин
 
-const mapStateToProps = state => {
-  return {
-    ings: state.burgerBuilder.ingredients,
-    price: state.burgerBuilder.totalPrice,
-    loading: state.order.loading,
-    ingsPrice: INGREDIENT_PRICES,
-    isAuth: state.auth.token !== null
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
-    onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
-    onInitIngredients: () => dispatch(actions.initIngredients()),
-    onInitPurchase: () => dispatch(actions.purchaseInit()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(BurgerBuilder);
+export default BurgerBuilder;
