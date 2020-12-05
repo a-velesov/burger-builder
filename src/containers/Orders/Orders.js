@@ -1,18 +1,28 @@
 import React, { useEffect } from 'react';
 import { Order } from '../../components/Order/Order';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions';
 import { Loading } from '../../components/UI/Loading/Loading';
 
-const Orders = props => {
+const Orders = () => {
+
+  const dispatch = useDispatch();
+  const onFetchOrders = (token, userId) => dispatch(actions.fetchOrders(token, userId));
+
+  const orders = useSelector(state => state.order.orders);
+  const loading = useSelector(state => state.order.loading);
+  const userId = useSelector(state => state.auth.userId);
+  const token = useSelector(state => state.auth.token);
 
   useEffect(() => {
-    props.onFetchOrders(props.token, props.userId);
+    onFetchOrders(token, userId);
   }, [])
 
-    let orders = <Loading />;
-    if(!props.loading) {
-      orders = (props.orders.reverse().map(order => (
+  console.log(orders, 'orders');
+
+    let orderView = <Loading />;
+    if(!loading) {
+      orderView = (orders.reverse().map(order => (
         <Order
           key={ order.id }
           ingredients={ order.ingredients }
@@ -22,24 +32,9 @@ const Orders = props => {
     return (
       <>
         <h2 style={ { textAlign: 'center' } }>Orders</h2>
-        { orders }
+        { orderView }
       </>
     );
 }
 
-const mapStateToProps = state => {
-  return {
-    orders: state.order.orders,
-    loading: state.order.loading,
-    token: state.auth.token,
-    userId: state.auth.userId,
-  };
-};
-
-const mapDispatchtoProps = dispatch => {
-  return {
-    onFetchOrders: (token, userId) => dispatch(actions.fetchOrders(token, userId)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchtoProps)(Orders);
+export default Orders;

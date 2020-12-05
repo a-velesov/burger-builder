@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '../../components/UI/Input/Input';
 import { Button } from '../../components/UI/Button/Button';
 import * as actions from '../../store/actions/index';
@@ -7,7 +7,7 @@ import classes from './Auth.module.css';
 import { Redirect } from 'react-router-dom';
 import { checkValidity } from '../../sharing';
 
-const Auth = props => {
+const Auth = () => {
 
   const [authForm, setAuthForm] = useState({
       email: {
@@ -43,6 +43,12 @@ const Auth = props => {
   });
     const [isSignup, setIsSignup] = useState(false);
 
+  // const error = useSelector(state => state.auth.error);
+  const token = useSelector(state => state.auth.token);
+
+  const dispatch = useDispatch();
+  const onAuth = (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup));
+
   const inputChangedHandler = (e, controlName) => {
     const updatedControls = {
       ...authForm,
@@ -58,7 +64,7 @@ const Auth = props => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    props.onAuth(authForm.email.value, authForm.password.value, isSignup);
+    onAuth(authForm.email.value, authForm.password.value, isSignup);
   };
 
   const switchAuthModeHandler = () => {
@@ -98,22 +104,9 @@ const Auth = props => {
                   action={ `Switch to ${ isSignup ? 'Login' : 'SignUp' }` }
           />
         </form>
-        { props.token ? <Redirect to='/' /> : '' }
+        { token ? <Redirect to='/' /> : '' }
       </div>
     );
 }
 
-const mapStateToProps = state => {
-  return {
-    error: state.auth.error,
-    token: state.auth.token
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default Auth;

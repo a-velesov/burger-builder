@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import CartSummary from '../../components/CartSummary/CartSummary';
 import { Route } from 'react-router-dom';
 import Checkout from '../Checkout/Checkout';
-import { connect } from 'react-redux';
 
-
-export const Cart = (props) => {
+export const Cart = props => {
 
   const [checkout, setCheckout] = useState(false);
 
@@ -35,12 +33,4 @@ export const Cart = (props) => {
     );
 }
 
-const mapStateToProps = state => {
-  return {
-    ings: state.burgerBuilder.ingredients,
-    price: state.burgerBuilder.totalPrice,
-    purchased: state.order.purchased
-  };
-};
-
-export default connect(mapStateToProps)(Cart);
+export default Cart;

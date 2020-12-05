@@ -6,9 +6,9 @@ export const Header = ({ isAuth }) => {
   return (
     <header className={ classes.Header }>
       <div className={ classes.HeaderContainer }>
-        <a href="/">
+        <NavLink to={ '/' }>
           <img src={ require('../../../../assets/title.png') } alt="React Burger Builder" />
-        </a>
+        </NavLink>
         <nav className={ classes.Nav }>
           { isAuth ? <NavLink to={ '/orders' }>Orders</NavLink> : null }
           <div className={ classes.Cart }>
