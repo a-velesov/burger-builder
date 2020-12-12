@@ -1,7 +1,11 @@
 import React from 'react';
 import classes from './BurgerIngredient.module.css';
 
-const BurgerIngredient = ({ type }) => {
+interface PropsType {
+  type: string
+}
+
+const BurgerIngredient = ({ type }: PropsType) => {
   return (
     <img
       src={ require(`../../../assets/burger-ingredients/${ type }.svg`) }
