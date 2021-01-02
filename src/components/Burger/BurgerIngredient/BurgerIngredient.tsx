@@ -5,15 +5,13 @@ interface PropsType {
   type: string
 }
 
-const BurgerIngredient = ({ type }: PropsType) => {
-  return (
-    <img
-      src={ require(`../../../assets/burger-ingredients/${ type }.svg`) }
-      className={ classes.BurgerIngredients }
-      alt='burger-ingredients'
-    />
+const BurgerIngredient = ({ type }: PropsType) => (
+  <img
+    src={require(`../../../assets/burger-ingredients/${type}.svg`)}
+    className={classes.BurgerIngredients}
+    alt="burger-ingredients"
+  />
 
-  );
-};
+);
 
 export default BurgerIngredient;

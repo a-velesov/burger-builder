@@ -1,5 +1,11 @@
 {
-  "extends": ["airbnb", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
   "parser":  "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion":  2018,
@@ -9,6 +15,10 @@
     }
   },
   "rules":  {
+    "import/no-unresolved": [
+      2,
+      { "caseSensitive": false }
+    ],
     "react/jsx-filename-extension": [2, {
       "extensions": [
         ".tsx"
@@ -27,12 +37,6 @@
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
-    },
-    "import/resolver": {
-      "node": {
-        "extensions": [".ts", ".tsx"],
-        "paths": ["src"]
-      }
     },
     "import/extensions": [".ts", ".tsx"],
     "react": {
