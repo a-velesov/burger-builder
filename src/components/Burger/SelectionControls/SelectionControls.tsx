@@ -3,6 +3,17 @@ import classes from './SelectionControls.module.css';
 import { Control } from './Control/Control';
 import { Button } from '../../UI/Button/Button';
 
+interface PropsType {
+  ingredients: { [key: string]: number },
+  ingredientAdded: React.MouseEventHandler<HTMLButtonElement>,
+  ingredientRemoved: React.MouseEventHandler<HTMLButtonElement>,
+  totalPrice: number,
+  price: any,
+  purchasingHandler: React.MouseEventHandler<HTMLButtonElement>,
+  fastOrder: React.MouseEventHandler<HTMLButtonElement>,
+  isAuth: boolean,
+}
+
 const SelectionControls = ({
   ingredients,
   ingredientAdded,
@@ -12,8 +23,8 @@ const SelectionControls = ({
   purchasingHandler,
   fastOrder,
   isAuth,
-}) => {
-  const updatedTotal = () => Object.values(ingredients).reduce((sum, cur) => sum + cur, 0);
+}: PropsType) => {
+  const updatedTotal = Object.values(ingredients).reduce((sum, cur) => sum + cur, 0);
 
   // loop through ingredients to create individual control
   const displayControls = Object.keys(ingredients).map((ingredientKey) => (
@@ -31,8 +42,8 @@ const SelectionControls = ({
   let errorMessage = '';
 
   const disabledButton = () => {
-    if (updatedTotal() < 1) {
-      errorMessage = "Please add ingredients";
+    if (updatedTotal < 1) {
+      errorMessage = 'Please add ingredients';
       return true;
     }
     if (!isAuth) {
@@ -50,11 +61,11 @@ const SelectionControls = ({
       </h2>
       <p>
         Total Ingredients Used:
-        {updatedTotal()}
+        {updatedTotal}
         /10
       </p>
 
-      {updatedTotal() >= 10 ? (
+      {updatedTotal >= 10 ? (
         <p className={classes.Warning}>
           {/* eslint-disable-next-line react/no-unescaped-entities */}
           You've reached your total ingredient limit.
@@ -68,7 +79,7 @@ const SelectionControls = ({
           type="secondary"
           action="Fast order"
           click={fastOrder}
-          disabled={updatedTotal() < 1}
+          disabled={updatedTotal < 1}
         />
         <Button
           type="primary"

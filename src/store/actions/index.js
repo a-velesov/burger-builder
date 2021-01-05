@@ -1,7 +1,7 @@
 export {
   auth,
   logout,
-  authChackState
+  authChackState,
 } from './auth';
 
 export {
@@ -13,5 +13,5 @@ export {
 export {
   purchaseBurger,
   purchaseInit,
-  fetchOrders
+  fetchOrders,
 } from './order';

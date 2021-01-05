@@ -1,50 +1,49 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Input } from '../../components/UI/Input/Input';
 import { Button } from '../../components/UI/Button/Button';
 import * as actions from '../../store/actions/index';
 import classes from './Auth.module.css';
-import { Redirect } from 'react-router-dom';
 import { checkValidity } from '../../sharing';
 
 const Auth = () => {
-
   const [authForm, setAuthForm] = useState({
-      email: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'email',
-          placeholder: 'Email',
-          label: 'Email',
-        },
-        value: 'test@test.ru', //demo
-        validation: {
-          required: true,
-          isEmail: true,
-        },
-        valid: true,
-        touched: false,
+    email: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'email',
+        placeholder: 'Email',
+        label: 'Email',
       },
-      password: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'password',
-          placeholder: 'Password',
-          label: 'Password',
-        },
-        validation: {
-          required: true,
-          minLength: 6,
-        },
-        value: '1q2w3e', //demo
-        valid: true,
-        touched: false,
+      value: 'test@test.ru', // demo
+      validation: {
+        required: true,
+        isEmail: true,
       },
+      valid: true,
+      touched: false,
+    },
+    password: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'password',
+        placeholder: 'Password',
+        label: 'Password',
+      },
+      validation: {
+        required: true,
+        minLength: 6,
+      },
+      value: '1q2w3e', // demo
+      valid: true,
+      touched: false,
+    },
   });
-    const [isSignup, setIsSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
 
   // const error = useSelector(state => state.auth.error);
-  const token = useSelector(state => state.auth.token);
+  const token = useSelector((state) => state.auth.token);
 
   const dispatch = useDispatch();
   const onAuth = (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup));
@@ -69,44 +68,43 @@ const Auth = () => {
 
   const switchAuthModeHandler = () => {
     setIsSignup(!isSignup);
-
   };
 
-    const formElementsArray = [];
-    for(let key in authForm) {
-      formElementsArray.push({
-        id: key,
-        config: authForm[key],
-      });
-    }
+  const formElementsArray = [];
+  for (const key in authForm) {
+    formElementsArray.push({
+      id: key,
+      config: authForm[key],
+    });
+  }
 
-    return (
-      <div className={ classes.Auth }>
-        <h2 className={ classes.Title }>{ !isSignup ? 'Login' : 'Sign up' }</h2>
-        <form className={ classes.AuthForm } onSubmit={ submitHandler }>
-          { formElementsArray.map(formElement => (
-            <Input
-              key={ formElement.id }
-              elementType={ formElement.config.elementType }
-              elementConfig={ formElement.config.elementConfig }
-              value={ formElement.config.value }
-              invalid={ !formElement.config.valid }
-              shouldValidate={ formElement.config.validation }
-              touched={ formElement.touched }
-              changed={ (e) => inputChangedHandler(e, formElement.id) }
-            />
-          ))
-          }
-          <Button action='Submit' />
-          <Button type='secondary'
-                  typeButton='button'
-                  click={ switchAuthModeHandler }
-                  action={ `Switch to ${ isSignup ? 'Login' : 'SignUp' }` }
+  return (
+    <div className={classes.Auth}>
+      <h2 className={classes.Title}>{ !isSignup ? 'Login' : 'Sign up' }</h2>
+      <form className={classes.AuthForm} onSubmit={submitHandler}>
+        { formElementsArray.map((formElement) => (
+          <Input
+            key={formElement.id}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}
+            invalid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
+            touched={formElement.touched}
+            changed={(e) => inputChangedHandler(e, formElement.id)}
           />
-        </form>
-        { token ? <Redirect to='/' /> : '' }
-      </div>
-    );
-}
+        ))}
+        <Button action="Submit" />
+        <Button
+          type="secondary"
+          typeButton="button"
+          click={switchAuthModeHandler}
+          action={`Switch to ${isSignup ? 'Login' : 'SignUp'}`}
+        />
+      </form>
+      { token ? <Redirect to="/" /> : '' }
+    </div>
+  );
+};
 
 export default Auth;
