@@ -2,15 +2,14 @@ import React from 'react';
 import classes from './Button.module.css';
 
 interface PropsType {
-  type: any,
   action: any,
+  type: string,
   click: any,
   disabled: any,
-  typeButton?: any,
 }
 
-export const Button = ({
-  type, action, click, disabled, typeButton,
+const Button = ({
+  type, action, click, disabled,
 }: PropsType) => {
   let style = '';
 
@@ -31,5 +30,15 @@ export const Button = ({
 
   if (disabled) style = classes.Disabled;
 
-  return <button disabled={disabled} className={style} type={typeButton} onClick={click}>{ action }</button>;
+  return (
+    <button
+      disabled={disabled}
+      className={style}
+      onClick={click}
+    >
+      { action }
+    </button>
+  );
 };
+
+export default Button;

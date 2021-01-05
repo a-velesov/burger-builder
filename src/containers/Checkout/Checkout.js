@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '../../components/UI/Button/Button';
+import Button from '../../components/UI/Button/Button';
 import classes from './Checkout.module.css';
 import { Input } from '../../components/UI/Input/Input';
 import { useDispatch, useSelector } from 'react-redux';

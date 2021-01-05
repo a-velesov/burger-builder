@@ -10,7 +10,7 @@ interface PropsType {
     price: any,
 }
 
-export const Control = ({
+const Control = ({
   label,
   quantity,
   quantitySummary,
@@ -45,3 +45,5 @@ export const Control = ({
     </p>
   </div>
 );
+
+export default Control;

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import {Action, bindActionCreators, Dispatch} from 'redux';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import Layout from './components/UI/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Cart from './containers/Cart/Cart';
@@ -11,17 +10,17 @@ import Orders from './containers/Orders/Orders';
 import Logout from './containers/Auth/Logout/Logout';
 import { authChackState } from './store/actions';
 
-interface IConnectedDispatch {
-  authChackState: () => Action;
+const mapDispatch = {
+  onTryAutoSign: () => ({ authChackState }),
 };
 
-interface IProps {
-  onTryAutoSign?: any;
-};
+const connector = connect(null, mapDispatch);
 
-export const App = ({ onTryAutoSign }: IProps) => {
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const App = (props: PropsFromRedux) => {
   useEffect(() => {
-    onTryAutoSign();
+    props.onTryAutoSign();
   }, []);
 
   return (
@@ -37,8 +36,4 @@ export const App = ({ onTryAutoSign }: IProps) => {
   );
 };
 
-const mapDispatchToProps = {
-  authChackState
-};
-
-export default connect<IConnectedDispatch>(null, mapDispatchToProps)(App);
+export default connector(App);

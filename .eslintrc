@@ -19,6 +19,7 @@
       2,
       { "caseSensitive": false }
     ],
+    "react/button-has-type": 0,
     "react/jsx-filename-extension": [2, {
       "extensions": [
         ".tsx"

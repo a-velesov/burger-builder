@@ -11,7 +11,7 @@ interface PropsType extends RouteComponentProps {
 const Burger = ({ ingredients }: PropsType) => {
   const transformedIngredient = Object.keys(ingredients)
     .map((igKey) => [...Array(ingredients[igKey])]
-      .map((_, i) => <BurgerIngredient key={igKey + i} type={igKey} />))
+      .map((_, i) => <BurgerIngredient key={igKey} type={igKey} />))
     .reduce((arr, el) => arr.concat(el), []);
 
   return (

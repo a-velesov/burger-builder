@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Input } from '../../components/UI/Input/Input';
-import { Button } from '../../components/UI/Button/Button';
+import Button from '../../components/UI/Button/Button';
 import * as actions from '../../store/actions/index';
 import classes from './Auth.module.css';
 import { checkValidity } from '../../sharing';
@@ -95,12 +95,11 @@ const Auth = () => {
           />
         ))}
         <Button action="Submit" />
-        <Button
-          type="secondary"
-          typeButton="button"
+        <div
           click={switchAuthModeHandler}
-          action={`Switch to ${isSignup ? 'Login' : 'SignUp'}`}
-        />
+        >
+          {`Switch to ${isSignup ? 'Login' : 'SignUp'}`}
+        </div>
       </form>
       { token ? <Redirect to="/" /> : '' }
     </div>

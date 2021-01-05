@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './SelectionControls.module.css';
-import { Control } from './Control/Control';
-import { Button } from '../../UI/Button/Button';
+import Control from './Control/Control';
+import Button from '../../UI/Button/Button';
 
 interface PropsType {
   ingredients: { [key: string]: number },
