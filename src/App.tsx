@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Layout from './components/UI/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Cart from './containers/Cart/Cart';
@@ -10,17 +10,11 @@ import Orders from './containers/Orders/Orders';
 import Logout from './containers/Auth/Logout/Logout';
 import { authChackState } from './store/actions';
 
-const mapDispatch = {
-  onTryAutoSign: () => ({ authChackState }),
-};
+const App = () => {
+  const dispatch = useDispatch();
 
-const connector = connect(null, mapDispatch);
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-export const App = (props: PropsFromRedux) => {
   useEffect(() => {
-    props.onTryAutoSign();
+    dispatch(authChackState());
   }, []);
 
   return (
@@ -36,4 +30,4 @@ export const App = (props: PropsFromRedux) => {
   );
 };
 
-export default connector(App);
+export default App;

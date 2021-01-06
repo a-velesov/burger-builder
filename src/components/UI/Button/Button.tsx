@@ -41,4 +41,10 @@ const Button = ({
   );
 };
 
+// solution problems dynamic required props
+
+/* Button.defaultProps = {
+  type: "submit", // undefined
+};*/
+
 export default Button;

@@ -69,8 +69,6 @@ export const Input = (props) => {
     validationError = <p className={classes.ValidationError}>Please enter a valid value!</p>;
   }
 
-  console.log('props.elementConfig', props);
-
   return (
     <div className={classes.Checkout}>
       <label className={classes.Label}>{ props.elementConfig.label }</label>

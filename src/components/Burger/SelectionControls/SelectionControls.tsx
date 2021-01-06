@@ -5,8 +5,8 @@ import Button from '../../UI/Button/Button';
 
 interface PropsType {
   ingredients: { [key: string]: number },
-  ingredientAdded: React.MouseEventHandler<HTMLButtonElement>,
-  ingredientRemoved: React.MouseEventHandler<HTMLButtonElement>,
+  ingredientAdded: () => void,
+  ingredientRemoved: () => void,
   totalPrice: number,
   price: any,
   purchasingHandler: React.MouseEventHandler<HTMLButtonElement>,

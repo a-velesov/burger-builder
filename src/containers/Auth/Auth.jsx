@@ -96,7 +96,8 @@ const Auth = () => {
         ))}
         <Button action="Submit" />
         <div
-          click={switchAuthModeHandler}
+          className={classes.Switch}
+          onClick={switchAuthModeHandler}
         >
           {`Switch to ${isSignup ? 'Login' : 'SignUp'}`}
         </div>

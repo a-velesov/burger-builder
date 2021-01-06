@@ -5,13 +5,18 @@ interface PropsType {
   type: string
 }
 
-const BurgerIngredient = ({ type }: PropsType) => (
+const BurgerIngredient = ({ type }: PropsType) => {
+
+  const images = require.context('../../../assets/burger-ingredients', true);
+  const imgSrc = images(`./${type}.svg`).default;
+
+  return (
   <img
-    src={require(`../../../assets/burger-ingredients/${type}.svg`)}
+    src={imgSrc}
     className={classes.BurgerIngredients}
     alt="burger-ingredients"
   />
-
-);
+  )
+};
 
 export default BurgerIngredient;

@@ -12,3 +12,7 @@
     flex-direction: column;
     align-items: center;
 }
+
+.Switch {
+    text-decoration: underline;
+}

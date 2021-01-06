@@ -5,13 +5,15 @@ import Button from '../../UI/Button/Button';
 export const OrderSummary = ({
   ingredients, purchasingHandler, purchaseContinueHandler, totalPrice, modal,
 }) => {
+  const images = require.context('../../../assets/ingredients-icon', true);
+
   const displayIngredients = Object.keys(ingredients)
     .filter((el) => ingredients[el] > 0) // only show used ingredients
     .map((key) => (
       <li key={key}>
         <img
           className={classes.Icon}
-          src={require(`../../../assets/ingredients-icon/${key}.svg`)}
+          src={images(`./${key}.svg`).default}
           alt={key}
         />
         <span className={classes.IngredientName}>{ key }</span>

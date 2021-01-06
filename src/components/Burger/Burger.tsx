@@ -5,13 +5,13 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import shadow from '../../assets/burger-shadow.svg';
 
 interface PropsType extends RouteComponentProps {
-  ingredients: any,
+  ingredients: { [key: string]: number },
 }
 
 const Burger = ({ ingredients }: PropsType) => {
   const transformedIngredient = Object.keys(ingredients)
     .map((igKey) => [...Array(ingredients[igKey])]
-      .map((_, i) => <BurgerIngredient key={igKey} type={igKey} />))
+      .map((_, i) => <BurgerIngredient key={igKey + i} type={igKey} />))
     .reduce((arr, el) => arr.concat(el), []);
 
   return (
