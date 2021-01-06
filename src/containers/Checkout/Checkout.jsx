@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/UI/Button/Button';
 import classes from './Checkout.module.css';
 import { Input } from '../../components/UI/Input/Input';
-import { useDispatch, useSelector } from 'react-redux';
-import * as actions from './../../store/actions/';
+import * as actions from '../../store/actions';
 import { checkValidity } from '../../sharing';
 import { Loading } from '../../components/UI/Loading/Loading';
 
-const Checkout = props => {
-
-  const [ orderForm, setOrderForm ] = useState({
+const Checkout = (props) => {
+  const [orderForm, setOrderForm] = useState({
     name: {
       elementType: 'input',
       elementConfig: {
@@ -94,31 +93,31 @@ const Checkout = props => {
       valid: true,
     },
   });
-  const [ formIsValid, setFormIsValid ] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(false);
 
   const dispatch = useDispatch();
   const onOrderBurger = (orderData, token) => {
     dispatch(actions.purchaseBurger(orderData, token));
   };
 
-  const ings = useSelector(state => state.burgerBuilder.ingredients);
-  const price = useSelector(state => state.burgerBuilder.totalPrice);
-  const userId = useSelector(state => state.auth.userId);
-  const token = useSelector(state => state.auth.token);
-  const loading = useSelector(state => state.order.loading);
+  const ings = useSelector((state) => state.burgerBuilder.ingredients);
+  const price = useSelector((state) => state.burgerBuilder.totalPrice);
+  const userId = useSelector((state) => state.auth.userId);
+  const token = useSelector((state) => state.auth.token);
+  const loading = useSelector((state) => state.order.loading);
 
   const orderSubmit = (e) => {
     e.preventDefault();
 
     const formData = {};
-    for(let formElementIdentifier in orderForm) {
+    for (const formElementIdentifier in orderForm) {
       formData[formElementIdentifier] = orderForm[formElementIdentifier].value;
     }
     const order = {
       ingredients: ings,
       totalPrice: price,
       orderData: formData,
-      userId: userId,
+      userId,
     };
     onOrderBurger(order, token);
     props.history.push('/');
@@ -139,17 +138,16 @@ const Checkout = props => {
     updatedOrderForm[inputIdentifier] = updateFormElement;
 
     let formIsValid = true;
-    for(let inputIdentifier in updatedOrderForm) {
+    for (const inputIdentifier in updatedOrderForm) {
       formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
     }
 
     setOrderForm(updatedOrderForm);
     setFormIsValid(formIsValid);
-
   };
 
   const formElementsArray = [];
-  for(let key in orderForm) {
+  for (const key in orderForm) {
     formElementsArray.push({
       id: key,
       config: orderForm[key],
@@ -157,34 +155,36 @@ const Checkout = props => {
   }
 
   return (
-    <div className={ classes.Checkout }>
-      <h2 className={ classes.Title }>Checkout</h2>
+    <div className={classes.Checkout}>
+      <h2 className={classes.Title}>Checkout</h2>
       {
         loading
           ? <Loading />
-          : <form onSubmit={ orderSubmit } className={ classes.PersonalDataForm }>
-            {
-              formElementsArray.map(formElement => {
-                return <Input
-                  key={ formElement.id }
-                  elementType={ formElement.config.elementType }
-                  elementConfig={ formElement.config.elementConfig }
-                  value={ formElement.config.value }
-                  invalid={ !formElement.config.valid }
-                  shouldValidate={ formElement.config.validation }
-                  touched={ formElement.config.touched }
-                  changed={ (e) => inputChangeHandler(e, formElement.id) }
-                />;
-              })
+          : (
+            <form onSubmit={orderSubmit} className={classes.PersonalDataForm}>
+              {
+              formElementsArray.map((formElement) => (
+                <Input
+                  key={formElement.id}
+                  elementType={formElement.config.elementType}
+                  elementConfig={formElement.config.elementConfig}
+                  value={formElement.config.value}
+                  invalid={!formElement.config.valid}
+                  shouldValidate={formElement.config.validation}
+                  touched={formElement.config.touched}
+                  changed={(e) => inputChangeHandler(e, formElement.id)}
+                />
+              ))
             }
-            <div className={ classes.ButtonSubmit }>
-              <Button
-                action='Checkout'
-                type={ !formIsValid ? 'disabled' : 'primary' }
-                disabled={ !formIsValid }
-              />
-            </div>
-          </form>
+              <div className={classes.ButtonSubmit}>
+                <Button
+                  action="Checkout"
+                  type={!formIsValid ? 'disabled' : 'primary'}
+                  disabled={!formIsValid}
+                />
+              </div>
+            </form>
+          )
       }
     </div>
   );

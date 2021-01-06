@@ -4,12 +4,12 @@ import { Backdrop } from '../Backdrop/Backdrop';
 
 export const Modal = ({ children, show, close }) => {
   const animation = show ? classes.FadeIn : classes.FadeOut;
-  const style = [ classes.Modal, animation ];
+  const style = [classes.Modal, animation];
 
   return (
     <>
-      <div className={ style.join(' ') }>{ children }</div>
-      <Backdrop show={ show } click={ close } />
+      <div className={style.join(' ')}>{ children }</div>
+      <Backdrop show={show} click={close} />
     </>
   );
 };

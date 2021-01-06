@@ -49,10 +49,10 @@ export const fetchOrdersStart = () => ({
 
 export const fetchOrders = (token, userId) => (dispatch) => {
   dispatch(fetchOrdersStart());
-  if (!token || !userId) {
+  /*  if (!token || !userId) {
     token = localStorage.getItem('token');
     userId = localStorage.getItem('userId');
-  }
+  } */
   const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
   axios.get(`/orders.json${queryParams}`)
     .then((res) => {

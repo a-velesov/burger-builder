@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import * as actions from '../../../store/actions';
 import { Redirect } from 'react-router-dom';
+import * as actions from '../../../store/actions';
 
 export const Logout = () => {
   const dispatch = useDispatch();
@@ -9,9 +9,9 @@ export const Logout = () => {
 
   useEffect(() => {
     onLogout();
-  }, [])
+  }, []);
 
-  return <Redirect to='/' />;
+  return <Redirect to="/" />;
 };
 
 export default Logout;

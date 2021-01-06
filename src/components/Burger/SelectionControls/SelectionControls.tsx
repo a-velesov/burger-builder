@@ -67,7 +67,6 @@ const SelectionControls = ({
 
       {updatedTotal >= 10 ? (
         <p className={classes.Warning}>
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
           You've reached your total ingredient limit.
         </p>
       ) : null}

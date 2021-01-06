@@ -1,22 +1,22 @@
-import * as actionTypes from './../actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   orders: [],
   loading: false,
-  purchased: false
+  purchased: false,
 };
 
 const reducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case actionTypes.PURCHASE_INIT:
       return {
         ...state,
-        purchased: false
-    }
+        purchased: false,
+      };
     case actionTypes.PURCHASE_START:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case actionTypes.PURCHASE_SUCCESS:
       const newOrder = {
@@ -37,19 +37,19 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_ORDERS_INIT:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case actionTypes.FETCH_ORDERS_SUCCESS:
       return {
         ...state,
         orders: action.orders,
-        loading: false
+        loading: false,
       };
     case actionTypes.FETCH_ORDERS_FAIL:
       return {
         ...state,
-        loading: true
-    };
+        loading: true,
+      };
     default:
       return state;
   }

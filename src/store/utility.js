@@ -1,6 +1,8 @@
 // example of how to refactor the store
 
-export const updateObject = (oldObject, updatedProperties) => ({
+const updateObject = (oldObject, updatedProperties) => ({
   ...oldObject,
   ...updatedProperties,
 });
+
+export default updateObject;
