@@ -8,7 +8,7 @@ interface PropsType {
   touched: boolean,
   elementType: string,
   value: string,
-  changed: () => void,
+  changed: (e?: any) => void,
   elementConfig: { [key: string]: any },
 }
 

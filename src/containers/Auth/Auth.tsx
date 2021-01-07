@@ -3,12 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
-import * as actions from '../../store/actions/index';
+import { auth } from '../../store/actions/index';
 import classes from './Auth.module.css';
 import { checkValidity } from '../../sharing';
+import {RootState} from "../../store/rootReducer";
+
+interface Ing {
+  [key: string]: any
+}
 
 const Auth = () => {
-  const [authForm, setAuthForm] = useState({
+  const [authForm, setAuthForm] = useState<Ing>({
     email: {
       elementType: 'input',
       elementConfig: {
@@ -43,27 +48,29 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
 
   // const error = useSelector(state => state.auth.error);
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const dispatch = useDispatch();
-  const onAuth = (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup));
 
-  const inputChangedHandler = (e, controlName) => {
+  type Evens = Partial<Record<keyof Ing, any>>;
+  const evens: Evens = authForm;
+
+  const inputChangedHandler = (e: React.ChangeEvent<HTMLInputElement>, controlName: string): void => {
     const updatedControls = {
-      ...authForm,
+      ...evens,
       [controlName]: {
-        ...authForm[controlName],
+        ...evens[controlName],
         value: e.target.value,
-        valid: checkValidity(e.target.value, authForm[controlName].validation),
+        valid: checkValidity(e.target.value, evens[controlName].validation),
         touched: true,
       },
     };
     setAuthForm(updatedControls);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    onAuth(authForm.email.value, authForm.password.value, isSignup);
+    dispatch(auth(authForm.email.value, authForm.password.value, isSignup));
   };
 
   const switchAuthModeHandler = () => {
@@ -74,7 +81,7 @@ const Auth = () => {
   for (const key in authForm) {
     formElementsArray.push({
       id: key,
-      config: authForm[key],
+      config: evens[key],
     });
   }
 
@@ -88,9 +95,9 @@ const Auth = () => {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
-            invalid={!formElement.config.valid}
+            valid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
-            touched={formElement.touched}
+            touched={formElement.config.touched}
             changed={(e) => inputChangedHandler(e, formElement.id)}
           />
         ))}

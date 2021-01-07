@@ -4,7 +4,7 @@ import classes from './Button.module.css';
 interface PropsType {
   action: any,
   type: string,
-  click: any,
+  click?: React.MouseEventHandler<HTMLButtonElement>,
   disabled: boolean,
 }
 
@@ -45,6 +45,7 @@ const Button = ({
 
  Button.defaultProps = {
    disabled: undefined,
+   type: undefined,
 };
 
 export default Button;
