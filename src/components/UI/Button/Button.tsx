@@ -5,7 +5,7 @@ interface PropsType {
   action: any,
   type: string,
   click: any,
-  disabled: any,
+  disabled: boolean,
 }
 
 const Button = ({
@@ -43,8 +43,8 @@ const Button = ({
 
 // solution problems dynamic required props
 
-/* Button.defaultProps = {
-  type: "submit", // undefined
-};*/
+ Button.defaultProps = {
+   disabled: undefined,
+};
 
 export default Button;
