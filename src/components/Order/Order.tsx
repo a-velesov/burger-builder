@@ -1,7 +1,12 @@
 import React from 'react';
 import classes from './Order.module.css';
 
-export const Order = (props) => {
+interface PropsType {
+    ingredients: { [key: string]: number },
+    price: number,
+}
+
+const Order = (props: PropsType) => {
   const ingredients = [];
 
   for (const ingredientName in props.ingredients) {
@@ -36,9 +41,11 @@ export const Order = (props) => {
         Price:
         <strong>
           USD
-          { Number.parseFloat(props.price).toFixed(2) }
+          { props.price.toFixed(2) }
         </strong>
       </p>
     </div>
   );
 };
+
+export default Order;

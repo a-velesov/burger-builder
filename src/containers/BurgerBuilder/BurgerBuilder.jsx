@@ -5,7 +5,7 @@ import classes from './BurgerBulder.module.css';
 import SelectionControls from '../../components/Burger/SelectionControls/SelectionControls';
 import { Modal } from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Order/OrderSummary/OrderSummary';
-import { OrderCompleted } from '../../components/Order/OrderSummary/OrderCompleted/OrderCompleted';
+import OrderCompleted from '../../components/Order/OrderSummary/OrderCompleted/OrderCompleted';
 import * as actions from '../../store/actions';
 import { INGREDIENT_PRICES } from '../../store/reducers/burgerBuilder';
 import { Loading } from '../../components/UI/Loading/Loading';

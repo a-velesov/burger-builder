@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Order } from '../../components/Order/Order';
+import Order from '../../components/Order/Order';
 import * as actions from '../../store/actions';
 import { Loading } from '../../components/UI/Loading/Loading';
 
