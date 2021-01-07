@@ -1,8 +1,14 @@
 import React from 'react';
 import classes from './Modal.module.css';
-import { Backdrop } from '../Backdrop/Backdrop';
+import Backdrop from '../Backdrop/Backdrop';
 
-export const Modal = ({ children, show, close }) => {
+interface PropsType {
+    children?: any,
+    show: boolean,
+    close: React.MouseEventHandler<HTMLDivElement>,
+}
+
+const Modal = ({ children, show, close }: PropsType) => {
   const animation = show ? classes.FadeIn : classes.FadeOut;
   const style = [classes.Modal, animation];
 
@@ -13,3 +19,5 @@ export const Modal = ({ children, show, close }) => {
     </>
   );
 };
+
+export default Modal;

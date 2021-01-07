@@ -17,8 +17,6 @@ const Orders = () => {
     onFetchOrders(token, userId);
   }, []);
 
-  console.log(orders, 'orders');
-
   let orderView = <Loading />;
   if (!loading) {
     orderView = (orders.reverse().map((order) => (

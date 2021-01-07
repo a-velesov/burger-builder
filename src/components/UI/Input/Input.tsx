@@ -1,11 +1,22 @@
 import React from 'react';
 import classes from './Input.module.css';
+import Button from "../Button/Button";
 
-export const Input = (props) => {
-  let inputElement = '';
+interface PropsType {
+  valid: boolean,
+  shouldValidate?: { [key: string]: boolean | number },
+  touched: boolean,
+  elementType: string,
+  value: string,
+  changed: () => void,
+  elementConfig: { [key: string]: any },
+}
+
+const Input = (props: PropsType) => {
+  let inputElement = null;
   const inputClasses = [classes.InputElement];
 
-  if (props.invalid && props.shouldValidate && props.touched) {
+  if (props.valid && props.shouldValidate && props.touched) {
     inputClasses.push(classes.Invalid);
   }
 
@@ -35,12 +46,12 @@ export const Input = (props) => {
     case ('select'):
       inputElement = (
         <select
-          className={inputClasses}
+          className={inputClasses.join(' ')}
           value={props.value}
           onChange={props.changed}
         >
           {
-            props.elementConfig.options.map((option) => (
+            props.elementConfig.options.map((option: any) => (
               <option
                 key={option.value}
                 value={option.value}
@@ -57,7 +68,7 @@ export const Input = (props) => {
     default:
       inputElement = (
         <input
-          className={inputClasses}
+          className={inputClasses.join(' ')}
           value={props.value}
           {...props.elementConfig}
         />
@@ -65,7 +76,7 @@ export const Input = (props) => {
   }
 
   let validationError = null;
-  if (props.invalid && props.touched) {
+  if (props.valid && props.touched) {
     validationError = <p className={classes.ValidationError}>Please enter a valid value!</p>;
   }
 
@@ -77,3 +88,9 @@ export const Input = (props) => {
     </div>
   );
 };
+
+Input.defaultProps = {
+  className: undefined,
+};
+
+export default Input;

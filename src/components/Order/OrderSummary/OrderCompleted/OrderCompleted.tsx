@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './OrderCompleted.module.css';
-import { Modal } from '../../../UI/Modal/Modal';
+import Modal from '../../../UI/Modal/Modal';
 
 interface PropsType {
     show: boolean,

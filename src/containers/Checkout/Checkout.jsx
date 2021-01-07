@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/UI/Button/Button';
 import classes from './Checkout.module.css';
-import { Input } from '../../components/UI/Input/Input';
+import Input from '../../components/UI/Input/Input';
 import * as actions from '../../store/actions';
 import { checkValidity } from '../../sharing';
 import { Loading } from '../../components/UI/Loading/Loading';
@@ -169,7 +169,7 @@ const Checkout = (props) => {
                   elementType={formElement.config.elementType}
                   elementConfig={formElement.config.elementConfig}
                   value={formElement.config.value}
-                  invalid={!formElement.config.valid}
+                  valid={!formElement.config.valid}
                   shouldValidate={formElement.config.validation}
                   touched={formElement.config.touched}
                   changed={(e) => inputChangeHandler(e, formElement.id)}
