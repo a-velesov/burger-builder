@@ -2,13 +2,17 @@ import * as actionTypes from './actionTypes';
 import axios from '../../Axios/axios-orders';
 import { initIngredients } from './burgerBuilder';
 
-export const purchaseBurgerSuccess = (id, orderData) => ({
+interface IObject {
+  [key: string]: any
+}
+
+export const purchaseBurgerSuccess = (id: string, orderData: IObject) => ({
   type: actionTypes.PURCHASE_SUCCESS,
   orderId: id,
   orderData,
 });
 
-export const purchaseBurgerFail = (error) => ({
+export const purchaseBurgerFail = (error: any) => ({
   type: actionTypes.PURCHASE_FAIL,
   error,
 });
@@ -17,7 +21,7 @@ export const purchaseBurgerStart = () => ({
   type: actionTypes.PURCHASE_START,
 });
 
-export const purchaseBurger = (orderData, token) => (dispatch) => {
+export const purchaseBurger = (orderData: IObject, token: string) => (dispatch: any) => {
   dispatch(purchaseBurgerStart());
   axios.post(`/orders.json?auth=${token}`, orderData)
     .then((response) => {
@@ -33,12 +37,12 @@ export const purchaseInit = () => ({
   type: actionTypes.PURCHASE_INIT,
 });
 
-export const fetchOrdersSuccess = (orders) => ({
+export const fetchOrdersSuccess = (orders: Array<string>) => ({
   type: actionTypes.FETCH_ORDERS_SUCCESS,
   orders,
 });
 
-export const fetchOrdersFail = (error) => ({
+export const fetchOrdersFail = (error: any) => ({
   type: actionTypes.FETCH_ORDERS_FAIL,
   error,
 });
@@ -47,7 +51,7 @@ export const fetchOrdersStart = () => ({
   type: actionTypes.FETCH_ORDERS_INIT,
 });
 
-export const fetchOrders = (token, userId) => (dispatch) => {
+export const fetchOrders = (token: string, userId: string) => (dispatch: any) => {
   dispatch(fetchOrdersStart());
   /*  if (!token || !userId) {
     token = localStorage.getItem('token');

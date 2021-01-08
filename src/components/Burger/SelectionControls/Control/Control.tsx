@@ -21,21 +21,19 @@ const Control = ({
     const imgSrc = images(`./${label}.svg`).default;
 
     const dispatch = useDispatch();
-    const added = (label: string) => dispatch(addIngredient(label));
-    const removed = (label: string) => dispatch(removeIngredient(label));
 
     return (
         <div className={classes.Control}>
             <div className={classes.Selection}>
                 <button
-                    onClick={() => removed(label)}
+                    onClick={() => dispatch(removeIngredient(label))}
                     disabled={quantity < 1}
                 >
                     -
                 </button>
                 <p>{quantity}</p>
                 <button
-                    onClick={() => added(label)}
+                    onClick={() => dispatch(addIngredient(label))}
                     disabled={quantity > 1 || quantitySummary > 9}
                 >
                     +
