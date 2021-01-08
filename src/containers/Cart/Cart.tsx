@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
+import {Route, RouteComponentProps} from 'react-router-dom';
 import CartSummary from '../../components/CartSummary/CartSummary';
 import Checkout from '../Checkout/Checkout';
 
-export const Cart = (props) => {
+const Cart: React.FunctionComponent<RouteComponentProps> = ({history, match}) => {
   const [checkout, setCheckout] = useState(false);
 
   const checkoutCancelHandler = () => {
-    props.history.goBack();
+    history.goBack();
   };
 
   const checkoutContinueHandler = () => {
-    props.history.replace('/cart/checkout');
+    history.replace('/cart/checkout');
     setCheckout(true);
   };
 
@@ -28,7 +28,7 @@ export const Cart = (props) => {
             )
         }
       <Route
-        path={`${props.match.path}/checkout`}
+        path={`${match.path}/checkout`}
         component={Checkout}
       />
     </>

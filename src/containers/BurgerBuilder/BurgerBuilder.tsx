@@ -12,7 +12,7 @@ import {Loading} from '../../components/UI/Loading/Loading';
 import {RootState} from './../../store/rootReducer'
 import {RouteComponentProps} from 'react-router-dom';
 
-export const BurgerBuilder: React.FunctionComponent<RouteComponentProps> = ({history}) => {
+const BurgerBuilder: React.FunctionComponent<RouteComponentProps> = ({history}) => {
     const [open, setOpen] = useState(false);
     const [completed, setCompleted] = useState(false);
 
