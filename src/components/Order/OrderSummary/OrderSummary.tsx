@@ -4,7 +4,6 @@ import Button from '../../UI/Button/Button';
 import {useSelector} from "react-redux";
 import {RootState} from './../../../store/rootReducer'
 
-
 interface PropsType {
     purchasingHandler: () => void,
     purchaseContinueHandler: () => void,

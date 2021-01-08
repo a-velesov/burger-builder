@@ -2,11 +2,10 @@ import React from 'react';
 import classes from './SelectionControls.module.css';
 import Control from './Control/Control';
 import Button from '../../UI/Button/Button';
+import {useSelector} from "react-redux";
+import {RootState} from "../../../store/rootReducer";
 
 interface PropsType {
-  ingredients: { [key: string]: number },
-  ingredientAdded: () => void,
-  ingredientRemoved: () => void,
   totalPrice: number,
   price: any,
   purchasingHandler: React.MouseEventHandler<HTMLButtonElement>,
@@ -14,27 +13,31 @@ interface PropsType {
   isAuth: boolean,
 }
 
+interface Ing {
+  [key: string]: number
+}
+
 const SelectionControls = ({
-  ingredients,
-  ingredientAdded,
-  ingredientRemoved,
   totalPrice,
   price,
   purchasingHandler,
   fastOrder,
   isAuth,
 }: PropsType) => {
+
+  const ingredients = useSelector((state: RootState) => state.burgerBuilder.ingredients);
+  type Evens = Partial<Record<keyof Ing, any>>;
+  const evens: Evens = ingredients;
+
   const updatedTotal = Object.values(ingredients).reduce((sum, cur) => sum + cur, 0);
 
   // loop through ingredients to create individual control
-  const displayControls = Object.keys(ingredients).map((ingredientKey) => (
+  const displayControls = Object.keys(evens).map((ingredientKey) => (
     <Control
       key={ingredientKey}
       label={ingredientKey}
-      quantity={ingredients[ingredientKey]}
+      quantity={evens[ingredientKey]}
       quantitySummary={updatedTotal}
-      added={ingredientAdded}
-      removed={ingredientRemoved}
       price={price}
     />
   ));

@@ -1,12 +1,12 @@
 import React from 'react';
 import classes from './Control.module.css';
+import {useDispatch} from "react-redux";
+import {addIngredient, removeIngredient} from '../../../../store/actions';
 
 interface PropsType {
     label: string,
     quantity: number,
     quantitySummary: any,
-    added: (label: string) => void,
-    removed: (label: string) => void,
     price: any,
 }
 
@@ -14,13 +14,15 @@ const Control = ({
                      label,
                      quantity,
                      quantitySummary,
-                     added,
-                     removed,
                      price,
                  }: PropsType) => {
 
     const images = require.context('../../../../assets/ingredients-icon', true);
     const imgSrc = images(`./${label}.svg`).default;
+
+    const dispatch = useDispatch();
+    const added = (label: string) => dispatch(addIngredient(label));
+    const removed = (label: string) => dispatch(removeIngredient(label));
 
     return (
         <div className={classes.Control}>
