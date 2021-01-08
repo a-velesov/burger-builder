@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './OrderSummary.module.css';
 import Button from '../../UI/Button/Button';
 import {useSelector} from "react-redux";
-import {RootState} from './../../../store/rootReducer'
+import {useTypedSelector} from './../../../store/rootReducer'
 
 interface PropsType {
     purchasingHandler: () => void,
@@ -17,8 +17,9 @@ const OrderSummary = ({
                           purchasingHandler, purchaseContinueHandler
                       }: PropsType) => {
     const images = require.context('../../../assets/ingredients-icon', true);
-    const ingredients = useSelector((state: RootState) => state.burgerBuilder.ingredients);
-    const totalPrice = useSelector((state: RootState) => state.burgerBuilder.totalPrice);
+
+    const ingredients = useTypedSelector((state) => state.burgerBuilder.ingredients);
+    const totalPrice = useTypedSelector((state) => state.burgerBuilder.totalPrice);
 
     type Evens = Partial<Record<keyof Ing, any>>;
     const evens: Evens = ingredients;

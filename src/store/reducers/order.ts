@@ -1,4 +1,10 @@
 import * as actionTypes from '../actions/actionTypes';
+import {AnyAction} from "redux";
+
+export interface IAction<T> extends AnyAction {
+  type: string;
+  payload: T;
+}
 
 const initialState = {
   orders: [],
@@ -6,7 +12,7 @@ const initialState = {
   purchased: false,
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: IAction<any>) => {
   switch (action.type) {
     case actionTypes.PURCHASE_INIT:
       return {

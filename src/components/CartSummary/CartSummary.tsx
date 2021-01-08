@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import classes from './CartSummary.module.css';
 import OrderSummary from '../Order/OrderSummary/OrderSummary';
-import {RootState} from "../../store/rootReducer";
+import {useTypedSelector} from "../../store/rootReducer";
 
 interface PropsType {
     checkoutContinueHandler: () => void,
@@ -11,7 +11,7 @@ interface PropsType {
 
 const CartSummary = (props: PropsType) => {
 
-    const price = useSelector((state: RootState) => state.burgerBuilder.totalPrice);
+    const price = useTypedSelector((state) => state.burgerBuilder.totalPrice);
 
     return (
         <div className={classes.CartSummary}>

@@ -1,4 +1,12 @@
-export const checkValidity = (value, rules) => {
+export interface ValidationRules {
+  required?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  isEmail?: boolean;
+  isNumeric?: boolean;
+}
+
+export const checkValidity = (value: string, rules: ValidationRules): boolean => {
   let isValid = true;
 
   if (!rules) {

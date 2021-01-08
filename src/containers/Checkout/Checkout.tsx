@@ -7,7 +7,7 @@ import {purchaseBurger} from '../../store/actions';
 import {checkValidity} from '../../sharing';
 import {Loading} from '../../components/UI/Loading/Loading';
 import {RouteComponentProps} from "react-router-dom";
-import {RootState} from './../../store/rootReducer';
+import {useTypedSelector} from './../../store/rootReducer';
 
 interface Ing {
     [key: string]: any
@@ -102,11 +102,11 @@ const Checkout: React.FunctionComponent<RouteComponentProps> = ({history}) => {
     const [formIsValid, setFormIsValid] = useState(false);
 
     const dispatch = useDispatch();
-    const ings = useSelector((state: RootState) => state.burgerBuilder.ingredients);
-    const price = useSelector((state: RootState) => state.burgerBuilder.totalPrice);
-    const userId = useSelector((state: RootState) => state.auth.userId);
-    const token = useSelector((state: RootState) => state.auth.token);
-    const loading = useSelector((state: RootState) => state.order.loading);
+    const ings = useTypedSelector((state) => state.burgerBuilder.ingredients);
+    const price = useTypedSelector((state) => state.burgerBuilder.totalPrice);
+    const userId = useTypedSelector((state) => state.auth.userId);
+    const token = useTypedSelector((state) => state.auth.token);
+    const loading = useTypedSelector((state) => state.order.loading);
 
     type Evens = Partial<Record<keyof Ing, any>>;
     const evens: Evens = {};

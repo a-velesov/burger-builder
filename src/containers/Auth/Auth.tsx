@@ -6,7 +6,7 @@ import Button from '../../components/UI/Button/Button';
 import { auth } from '../../store/actions/index';
 import classes from './Auth.module.css';
 import { checkValidity } from '../../sharing';
-import {RootState} from "../../store/rootReducer";
+import {useTypedSelector} from "../../store/rootReducer";
 
 interface Ing {
   [key: string]: any
@@ -48,7 +48,7 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
 
   // const error = useSelector(state => state.auth.error);
-  const token = useSelector((state: RootState) => state.auth.token);
+  const token = useTypedSelector((state) => state.auth.token);
 
   const dispatch = useDispatch();
 

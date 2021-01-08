@@ -4,11 +4,11 @@ import classes from './Header.module.css';
 import logo from '../../../../assets/title.png'
 import cart from '../../../../assets/cart-icon.svg'
 import {useSelector} from "react-redux";
-import {RootState} from "../../../../store/rootReducer";
+import {useTypedSelector} from "../../../../store/rootReducer";
 
 
 const Header = () => {
-    const isAuth = useSelector((state: RootState) => state.auth.token);
+    const isAuth = useTypedSelector((state) => state.auth.token);
 
     return (
         <header className={classes.Header}>

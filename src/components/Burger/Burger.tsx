@@ -4,14 +4,14 @@ import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import shadow from '../../assets/burger-shadow.svg';
 import {useSelector} from "react-redux";
-import {RootState} from "../../store/rootReducer";
+import {useTypedSelector} from "../../store/rootReducer";
 
 interface Ing {
     [key: string]: number
 }
 
 const Burger = () => {
-    const ingredients = useSelector((state: RootState) => state.burgerBuilder.ingredients);
+    const ingredients = useTypedSelector((state) => state.burgerBuilder.ingredients);
     type Evens = Partial<Record<keyof Ing, any>>;
     const evens: Evens = ingredients;
 

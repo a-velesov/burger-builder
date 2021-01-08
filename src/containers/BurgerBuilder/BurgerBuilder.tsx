@@ -9,16 +9,16 @@ import OrderCompleted from '../../components/Order/OrderSummary/OrderCompleted/O
 import {initIngredients, purchaseInit} from '../../store/actions';
 import {INGREDIENT_PRICES} from '../../store/reducers/burgerBuilder';
 import {Loading} from '../../components/UI/Loading/Loading';
-import {RootState} from './../../store/rootReducer'
+import {useTypedSelector} from './../../store/rootReducer'
 import {RouteComponentProps} from 'react-router-dom';
 
 const BurgerBuilder: React.FunctionComponent<RouteComponentProps> = ({history}) => {
     const [open, setOpen] = useState(false);
     const [completed, setCompleted] = useState(false);
 
-    const ings = useSelector((state: RootState) => state.burgerBuilder.ingredients);
-    const price = useSelector((state: RootState) => state.burgerBuilder.totalPrice);
-    const isAuth = useSelector((state: RootState) => state.auth.token !== null);
+    const ings = useTypedSelector((state) => state.burgerBuilder.ingredients);
+    const price = useTypedSelector((state) => state.burgerBuilder.totalPrice);
+    const isAuth = useTypedSelector((state) => state.auth.token !== null);
 
     const dispatch = useDispatch();
     const onInitIngredients = () => dispatch(initIngredients());

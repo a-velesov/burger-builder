@@ -3,15 +3,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import Order from '../../components/Order/Order';
 import {fetchOrders} from '../../store/actions';
 import {Loading} from '../../components/UI/Loading/Loading';
-import {RootState} from './../../store/rootReducer'
+import {useTypedSelector} from './../../store/rootReducer'
 
 
 const Orders = () => {
     const dispatch = useDispatch();
-    const orders = useSelector((state: RootState) => state.order.orders);
-    const loading = useSelector((state: RootState) => state.order.loading);
-    const userId = useSelector((state: RootState) => state.auth.userId);
-    const token = useSelector((state: RootState) => state.auth.token);
+
+    const orders = useTypedSelector((state) => state.order.orders);
+    const loading = useTypedSelector((state) => state.order.loading);
+    const userId = useTypedSelector((state) => state.auth.userId);
+    const token = useTypedSelector((state) => state.auth.token);
 
     useEffect(() => {
         dispatch(fetchOrders(token, userId))
