@@ -1,9 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../Axios/axios-orders';
-
-interface Ing {
-  [key: string]: number
-}
+import { Ing } from '../../types';
 
 export const addIngredient = (name: string) => ({
   type: actionTypes.ADD_INGRIDIENTS,

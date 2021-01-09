@@ -8,13 +8,10 @@ import {checkValidity} from '../../sharing';
 import {Loading} from '../../components/UI/Loading/Loading';
 import {RouteComponentProps} from "react-router-dom";
 import {useTypedSelector} from './../../store/rootReducer';
-
-interface Ing {
-    [key: string]: any
-}
+import {Ing, IObject} from '../../types';
 
 const Checkout: React.FunctionComponent<RouteComponentProps> = ({history}) => {
-    const [orderForm, setOrderForm] = useState<Ing>({
+    const [orderForm, setOrderForm] = useState<IObject>({
         name: {
             elementType: 'input',
             elementConfig: {

@@ -4,6 +4,7 @@ import Control from './Control/Control';
 import Button from '../../UI/Button/Button';
 import {useSelector} from "react-redux";
 import {RootState} from "../../../store/rootReducer";
+import { Ing } from '../../../types';
 
 interface PropsType {
   totalPrice: number,
@@ -11,10 +12,6 @@ interface PropsType {
   purchasingHandler: React.MouseEventHandler<HTMLButtonElement>,
   fastOrder: React.MouseEventHandler<HTMLButtonElement>,
   isAuth: boolean,
-}
-
-interface Ing {
-  [key: string]: number
 }
 
 const SelectionControls = ({

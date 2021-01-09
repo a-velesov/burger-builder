@@ -1,8 +1,9 @@
 import React from 'react';
 import classes from './Order.module.css';
+import {Ing} from "../../types";
 
 interface PropsType {
-    ingredients: { [key: string]: number },
+    ingredients: Ing,
     price: number,
 }
 

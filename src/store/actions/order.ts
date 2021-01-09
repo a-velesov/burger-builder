@@ -1,10 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../Axios/axios-orders';
 import { initIngredients } from './burgerBuilder';
-
-interface IObject {
-  [key: string]: any
-}
+import { IObject } from '../../types';
 
 export const purchaseBurgerSuccess = (id: string, orderData: IObject) => ({
   type: actionTypes.PURCHASE_SUCCESS,

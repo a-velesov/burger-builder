@@ -1,13 +1,14 @@
 import * as actionTypes from '../actions/actionTypes';
 import {AnyAction} from "redux";
+import {Ing} from "../../types";
 
 export interface IAction extends AnyAction {
   type: string;
-  payload: {[key: string]: number};
+  payload: Ing;
 }
 
 export interface BurgerState {
-  ingredients: {[key: string]: number},
+  ingredients: Ing,
   totalPrice: number,
 }
 
@@ -16,7 +17,7 @@ const initialState: BurgerState = {
   totalPrice: 0,
 };
 
-export const INGREDIENT_PRICES: {[key: string]: number} = {
+export const INGREDIENT_PRICES: Ing = {
   lettuce: 0.25,
   onion: 0.25,
   pickle: 0.5,

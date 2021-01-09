@@ -2,6 +2,11 @@ import React from 'react';
 import classes from './Input.module.css';
 import Button from "../Button/Button";
 
+interface IOptions {
+    value: string,
+    displayValue: string,
+}
+
 interface PropsType {
   valid: boolean,
   shouldValidate?: { [key: string]: boolean | number },
@@ -51,7 +56,7 @@ const Input = (props: PropsType) => {
           onChange={props.changed}
         >
           {
-            props.elementConfig.options.map((option: any) => (
+            props.elementConfig.options.map((option: IOptions) => (
               <option
                 key={option.value}
                 value={option.value}

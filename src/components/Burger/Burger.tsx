@@ -5,10 +5,7 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import shadow from '../../assets/burger-shadow.svg';
 import {useSelector} from "react-redux";
 import {useTypedSelector} from "../../store/rootReducer";
-
-interface Ing {
-    [key: string]: number
-}
+import { Ing } from '../../types';
 
 const Burger = () => {
     const ingredients = useTypedSelector((state) => state.burgerBuilder.ingredients);

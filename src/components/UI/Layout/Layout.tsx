@@ -3,7 +3,7 @@ import Header from './Header/Header';
 import classes from './Layout.module.css';
 
 interface PropsType {
-    children?: any,
+    children?: React.ReactNode,
 }
 
 const Layout = (props: PropsType) => (

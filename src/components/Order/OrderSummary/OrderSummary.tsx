@@ -3,14 +3,11 @@ import classes from './OrderSummary.module.css';
 import Button from '../../UI/Button/Button';
 import {useSelector} from "react-redux";
 import {useTypedSelector} from './../../../store/rootReducer'
+import { Ing } from '../../../types';
 
 interface PropsType {
     purchasingHandler: () => void,
     purchaseContinueHandler: () => void,
-}
-
-interface Ing {
-    [key: string]: any
 }
 
 const OrderSummary = ({
