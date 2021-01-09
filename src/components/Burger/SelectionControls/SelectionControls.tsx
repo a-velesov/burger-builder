@@ -60,9 +60,7 @@ const SelectionControls = ({
         {totalPrice}
       </h2>
       <p>
-        Total Ingredients Used:
-        {updatedTotal}
-        /10
+        Total Ingredients Used: {updatedTotal}/10
       </p>
 
       {updatedTotal >= 10 ? (

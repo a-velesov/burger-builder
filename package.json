@@ -54,7 +54,6 @@
     "eslint": "^7.15.0",
     "eslint-config-airbnb": "^18.2.1",
     "prettier-eslint-cli": "^5.0.0",
-    "redux-devtools-extension": "^2.13.8",
-    "ts-loader": "^8.0.14"
+    "redux-devtools-extension": "^2.13.8"
   }
 }
